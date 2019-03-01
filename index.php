@@ -33,10 +33,15 @@
                 </div>
             </div>   
         </header>
-        <div id="content">
+        <div class="container">
+            <section class="jumbotron row">
+
+            </section>
+            <section class="jumbotron row">
+
+            </section>
         </div>
-        <footer id="footer">
+        <footer>
         </footer>
-        
     </body>
 </html>

@@ -21,7 +21,8 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#page-top">Billet simple pour l'Alaska</a>
+                        <button id="connexion" type="button" class="navbar-toggle">Connexion</button>
+                        <a class="navbar-brand" href="?">Billet simple pour l'Alaska</a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
@@ -31,7 +32,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>   
+            </div>  
         </header>
         <div class="container">
             <section class="jumbotron row">

@@ -26,21 +26,40 @@
                             <a class="nav-item nav-link" href="?">Articles</a>
                             <a class="nav-item nav-link" href="?">Contact</a>
                         </div>
-                        <button class="btn btn-outline-primary" type="button">Connexion</button>
+                        <button class="btn btn-outline-light" type="button" data-toggle="modal" data-target="#modalLogin">Connexion</button>
                     </div>
                 </div>
             </nav>  
         </header>
         <div class="container">
             <section class="jumbotron">
-
             </section>
             <section class="jumbotron">
-
             </section>
-            
         </div>
-        <footer>
-        </footer>
+        <footer class="bg-dark text-white"></footer>
+        <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLogin" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title mx-auto" id="modalLogin">Se connecter</h5>
+                    </div>
+                    <div class="modal-body row justify-content-md-center">
+                        <form class="col-sm-8" action="?" method="post">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="name" placeholder="Identifiant" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="password" placeholder="Mot de passe" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Connexion</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

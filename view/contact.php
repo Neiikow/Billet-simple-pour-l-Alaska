@@ -1,4 +1,4 @@
-<?php $title = "Contact - Billet simple pour l'Alaska"; ?>
+<?php $title = "Contact"; ?>
 
 <?php ob_start(); ?>
     <button class="btn btn-outline-light" type="button" data-toggle="modal" data-target="#modalLogin">Connexion</button>

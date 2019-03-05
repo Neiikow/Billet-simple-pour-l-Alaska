@@ -1,14 +1,14 @@
 <?php
 require('model/frontend.php');
 
-function accueil()
+function home()
 {
-    $msg = getPosts();
+    $post = getLastPost();
     require('view/accueil.php');
 }
-function articles()
+function posts()
 {
-    $msg = getPost();
+    $posts = getPosts();
     require('view/articles.php');
 }
 function contact()

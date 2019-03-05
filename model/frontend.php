@@ -14,10 +14,18 @@ function dbConnect()
 }
 function getPosts()
 {
-    //$db = dbConnect();
-    $posts = "Tout les posts";
+    $db = dbConnect();
+    $req = $db->query('SELECT * FROM posts ORDER BY id');
 
-    return $posts;
+    return $req;
+}
+function getLastPost()
+{
+    $db = dbConnect();
+    $req = $db->query('SELECT * FROM posts ORDER BY id DESC LIMIT 1');
+    $req = $req->fetch();
+
+    return $req;
 }
 function getPost()
 {

@@ -3,15 +3,15 @@ require('controller/frontend.php');
 
 if (isset($_GET['action'])) {
     if ($_GET['action'] == 'accueil') {
-        accueil();
+        home();
     }
     elseif ($_GET['action'] == 'articles') {
-        articles();
+        posts();
     }
     elseif ($_GET['action'] == 'contact') {
         contact();
     }
 }
 else {
-    accueil();
+    home();
 }

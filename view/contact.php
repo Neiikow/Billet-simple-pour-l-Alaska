@@ -6,9 +6,6 @@
 
 <?php ob_start(); ?>
     <section class="jumbotron">
-    <?= $msg . ', sur la page contact' ?>
-    </section>
-    <section class="jumbotron">
     </section>
 <?php $content = ob_get_clean(); ?>
 

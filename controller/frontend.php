@@ -1,18 +1,20 @@
 <?php
-require('model/frontend.php');
+require_once('model/PostManager.php');
+require_once('model/CommentManager.php');
 
 function home()
 {
-    $post = getLastPost();
+    $postManager = new PostManager();
+    $post = $postManager->getLastPost();
     require('view/accueil.php');
 }
 function posts()
 {
-    $posts = getPosts();
+    $postManager = new PostManager();
+    $posts = $postManager->getPosts();
     require('view/articles.php');
 }
 function contact()
 {
-    $msg = getComments();
     require('view/contact.php');
 }

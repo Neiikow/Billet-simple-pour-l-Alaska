@@ -9,6 +9,7 @@ class CommentManager extends DbManager
     }
     public function getComments()
     {
+        $comments = [];
         $req = $this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY id');
         while ($data = $req->fetch(PDO::FETCH_ASSOC))
         {
@@ -19,6 +20,7 @@ class CommentManager extends DbManager
     }
     public function getPostComments($id)
     {
+        $comments = [];
         $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE postId = ? ORDER BY id');
         $req->execute(array($id));
         while ($data = $req->fetch(PDO::FETCH_ASSOC))

@@ -5,26 +5,50 @@
 <?php $nav = ob_get_clean(); ?>
 
 <?php ob_start(); ?>
+    <h2 class='text-uppercase'>Bienvenue sur mon blog</h2>
     <section class="jumbotron">
         <p>Message de présentation du site</p>
     </section>
-    <h2>Dernier article</h2>
-    <section class="jumbotron">
-        <p><strong><?= htmlspecialchars($post->author()) ?></strong> le <?= $post->datePost() ?></p>
-        <h2><?= htmlspecialchars($post->title()) ?></h2>
+    <?php
+    if (isset($post)) {
+
+    ?>
+    <h2 class='text-uppercase'>Dernier article</h2>
+    <section class="jumbotron post">
+        <h3><?= htmlspecialchars($post->title()) ?></h3>
         <p><?= nl2br(htmlspecialchars($post->text())) ?></p>
+        <nav class="navbar navbar-expand-lg navbar-light" role="navigation">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-item nav-link" href=""><strong>Commentaire(s)</strong></a>
+                            <a class="nav-item nav-link" href=""><strong>Editer</strong></a>
+                            <a class="nav-item nav-link" href=""><strong>Supprimer</strong></a>
+                        </div>
+                    </div>
+                    <p class="date justify-content-end font-italic"><strong><?= htmlspecialchars($post->author()) ?></strong> le <?= $post->datePost() ?></p>
+                </div>
+            </nav>
         <?php
-        foreach ($comments as $key => $comment)
-        { 
+        if (isset($comments)) {
+            foreach ($comments as $comment)
+            { 
         ?>
-        <section class="jumbotron">
+        <section class="jumbotron comment">
             <p><strong><?= htmlspecialchars($comment->author()) ?></strong> le <?= $comment->datePost() ?></p>
             <p><?= nl2br(htmlspecialchars($comment->text())) ?></p>
         </section>
         <?php
+            }
         }
         ?>
     </section>
+    <?php
+    }
+    ?>
 <?php $content = ob_get_clean(); ?>
 
 <?php require('view/template.php'); ?>

@@ -5,6 +5,7 @@
 <?php $nav = ob_get_clean(); ?>
 
 <?php ob_start(); ?>
+    <h2 class='text-uppercase'>Me contacter</h2>
     <section class="jumbotron">
     </section>
 <?php $content = ob_get_clean(); ?>

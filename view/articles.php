@@ -6,17 +6,16 @@
 
 <?php ob_start(); ?>
     <?php
-    while ($post = $posts->fetch())
-    {
+    for ($i=0; $i < count($posts); $i++)
+    { 
     ?>
     <section class="jumbotron">
-        <p><strong><?= htmlspecialchars($post['author']) ?></strong> le <?= $post['date_post'] ?></p>
-        <h2><?= htmlspecialchars($post['title']) ?></h2>
-        <p><?= nl2br(htmlspecialchars($post['text'])) ?></p>
+        <p><strong><?= htmlspecialchars($posts[$i]->author()) ?></strong> le <?= $posts[$i]->datePost() ?></p>
+        <h2><?= htmlspecialchars($posts[$i]->title()) ?></h2>
+        <p><?= nl2br(htmlspecialchars($posts[$i]->text())) ?></p>
     </section>
     <?php
     }
-    $posts->closeCursor();
     ?>
 <?php $content = ob_get_clean(); ?>
 

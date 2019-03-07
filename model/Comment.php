@@ -1,10 +1,11 @@
 <?php
-class Post
+class Comment
 {
     private $_id;
-    private $_title;
+    private $_postId;
     private $_author;
     private $_datePost;
+    private $_reported;
     private $_text;
 
     public function __construct($data)
@@ -25,18 +26,12 @@ class Post
     }
 
     public function id() { return $this->_id; }
-    public function title() { return $this->_title; }
+    public function postId() { return $this->_postId; }
     public function author() { return $this->_author; }
     public function datePost() { return $this->_datePost; }
+    public function reported() { return $this->_reported; }
     public function text() { return $this->_text; }
-    
-    public function setTitle($title)
-    {
-        if (is_string($title))
-        {
-            $this->_title = $title;
-        }
-    }
+
     public function setAuthor($author)
     {
         if (is_string($author))
@@ -54,6 +49,14 @@ class Post
     public function setId($id)
     {
         $this->_id = (int) $id;
+    }
+    public function setPostId($postId)
+    {
+        $this->_postId = (int) $postId;
+    }
+    public function setReported($reported)
+    {
+        $this->_reported = (int) $reported;
     }
     public function setDatePost($datePost)
     {

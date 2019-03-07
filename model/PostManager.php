@@ -15,6 +15,7 @@ class PostManager extends DbManager
         {
             $posts[] = new Post($data);
         }
+
         return $posts;
     }
     public function getPost($id)
@@ -29,6 +30,7 @@ class PostManager extends DbManager
     {
         $req = $this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY id DESC LIMIT 1');
         $data = $req->fetch(PDO::FETCH_ASSOC);
+        
         return new Post($data);
     }
     public function initPost(Post $post)

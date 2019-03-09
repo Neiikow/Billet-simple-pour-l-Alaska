@@ -58,5 +58,6 @@
             <?= $content ?>
         </div>
         <footer class="bg-dark text-white"></footer>
+        <script src="public/js/init.js"></script>
     </body>
 </html>

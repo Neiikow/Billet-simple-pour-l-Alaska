@@ -34,7 +34,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title mx-auto" id="modalLogin">Se connecter</h5>
+                            <h5 class="modal-title mx-auto" id="modalTitle">Se connecter</h5>
                         </div>
                         <div class="modal-body row justify-content-md-center">
                             <form class="col-sm-8" action="index.php?action=login" method="post">
@@ -54,10 +54,12 @@
                 </div>
             </div>
         </header>
-        <div class="container">
+        <div id="content" class="container">
             <?= $content ?>
         </div>
         <footer class="bg-dark text-white"></footer>
+        <script src="public/js/Post.js"></script>
+        <script src="public/js/Comment.js"></script>
         <script src="public/js/init.js"></script>
     </body>
 </html>

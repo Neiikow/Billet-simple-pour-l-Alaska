@@ -32,6 +32,3 @@ h3 {
     border-top: solid black 1px;
     display: none;
 }
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(0,0,0,.1);
-}

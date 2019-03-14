@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 05 mars 2019 à 15:35
+-- Généré le :  mar. 12 mars 2019 à 12:01
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -31,21 +31,29 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE IF NOT EXISTS `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `post_id` int(11) NOT NULL,
-  `pseudo` char(255) NOT NULL,
-  `date_post` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `postId` int(11) NOT NULL,
+  `author` char(255) NOT NULL,
+  `datePost` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `reported` tinyint(1) NOT NULL DEFAULT '0',
   `text` varchar(535) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `comments`
 --
 
-INSERT INTO `comments` (`id`, `post_id`, `pseudo`, `date_post`, `reported`, `text`) VALUES
-(1, 2, 'Neiikow', '2019-03-01 11:35:51', 0, 'Un message'),
-(2, 2, 'Esbroufe', '2019-03-01 11:35:51', 0, 'Un autre message');
+INSERT INTO `comments` (`id`, `postId`, `author`, `datePost`, `reported`, `text`) VALUES
+(1, 8, 'Neiikow', '2019-03-01 11:35:51', 0, 'Un message pour le post 8'),
+(2, 8, 'Esbroufe', '2019-03-01 11:35:51', 0, 'Un autre message pour le post 8'),
+(5, 7, 'Neiikow', '2019-03-06 13:05:58', 0, 'Un message pour le post 7'),
+(6, 7, 'Esbroufe', '2019-03-06 13:05:58', 0, 'Un autre message pour le post 7'),
+(7, 6, 'Neiikow', '2019-03-06 13:05:58', 0, 'Un message pour le post 6'),
+(8, 6, 'Esbroufe', '2019-03-06 13:05:58', 0, 'Un autre message pour le post 6'),
+(9, 5, 'Neiikow', '2019-03-06 13:05:58', 0, 'Un message pour le post 5'),
+(10, 5, 'Esbroufe', '2019-03-06 13:05:58', 0, 'Un autre message pour le post 5'),
+(11, 4, 'Neiikow', '2019-03-06 13:05:58', 0, 'Un message pour le post 4'),
+(12, 4, 'Esbroufe', '2019-03-06 13:05:58', 0, 'Un autre message pour le post 4');
 
 -- --------------------------------------------------------
 
@@ -79,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` char(255) NOT NULL,
   `author` char(255) NOT NULL,
-  `date_post` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `datePost` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `text` varchar(535) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
@@ -88,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
 -- Déchargement des données de la table `posts`
 --
 
-INSERT INTO `posts` (`id`, `title`, `author`, `date_post`, `text`) VALUES
+INSERT INTO `posts` (`id`, `title`, `author`, `datePost`, `text`) VALUES
 (4, 'Titre 1', 'Jordan Berger', '2019-03-05 14:21:19', 'Message 1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
 (5, 'Titre 2', 'Jordan Berger', '2019-03-05 14:21:19', 'Message 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
 (6, 'Titre 3', 'Jordan Berger', '2019-03-05 14:21:19', 'Message 3 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),

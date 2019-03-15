@@ -9,7 +9,7 @@ function home()
     $post = $postManager->getLastPost();
     $commentManager = new CommentManager('comments');
     $comments = $commentManager->getPostComments($post->id());
-    require('view/accueil.php');
+    require('view/front/pageAccueil.php');
 }
 function posts()
 {
@@ -17,9 +17,9 @@ function posts()
     $posts = $postManager->getPosts();
     $commentManager = new CommentManager('comments');
     $comments = $commentManager->getComments();
-    require('view/articles.php');
+    require('view/front/pageArticles.php');
 }
 function contact()
 {
-    require('view/contact.php');
+    require('view/front/pageContact.php');
 }

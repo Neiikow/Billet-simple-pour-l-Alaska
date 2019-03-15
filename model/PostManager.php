@@ -1,5 +1,6 @@
 <?php
 require_once('model/Post.php');
+
 class PostManager extends DbManager
 {
     public function __construct($table)
@@ -15,7 +16,7 @@ class PostManager extends DbManager
         {
             $posts[] = new Post($data);
         }
-
+        
         return $posts;
     }
     public function getPost($id)

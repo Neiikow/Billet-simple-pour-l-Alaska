@@ -25,13 +25,6 @@ class Comment
       }
     }
 
-    public function id() { return $this->_id; }
-    public function postId() { return $this->_postId; }
-    public function author() { return $this->_author; }
-    public function datePost() { return $this->_datePost; }
-    public function reported() { return $this->_reported; }
-    public function text() { return $this->_text; }
-
     public function setAuthor($author)
     {
         if (is_string($author))
@@ -62,4 +55,11 @@ class Comment
     {
         $this->_datePost = $datePost;
     }
+
+    public function id() { return $this->_id; }
+    public function postId() { return $this->_postId; }
+    public function author() { return $this->_author; }
+    public function datePost() { return $this->_datePost; }
+    public function reported() { return $this->_reported; }
+    public function text() { return $this->_text; }
 }

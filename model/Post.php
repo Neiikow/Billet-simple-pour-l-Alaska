@@ -24,12 +24,6 @@ class Post
       }
     }
 
-    public function id() { return $this->_id; }
-    public function title() { return $this->_title; }
-    public function author() { return $this->_author; }
-    public function datePost() { return $this->_datePost; }
-    public function text() { return $this->_text; }
-    
     public function setTitle($title)
     {
         if (is_string($title))
@@ -59,4 +53,11 @@ class Post
     {
         $this->_datePost = $datePost;
     }
+
+    public function id() { return $this->_id; }
+    public function title() { return $this->_title; }
+    public function author() { return $this->_author; }
+    public function datePost() { return $this->_datePost; }
+    public function text() { return $this->_text; }
+    public function postContent() { return $this->_postContent; }
 }

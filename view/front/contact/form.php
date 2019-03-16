@@ -1,5 +1,5 @@
 <div class='container table-responsive'>
-    <form>
+    <form action="index.php" method="post" class='p-1'>
         <div class='row form-group'>
             <div class='col'>
                 <input required type='text' name='name' placeholder='Identité' class='form-control'>
@@ -20,7 +20,7 @@
         </div>
         <div class='row form-group'>
             <div class='col'>
-                <button type='submit' class='btn btn-primary'>Envoyer</button>
+                <button type='submit' name='new-email' class='btn btn-primary'>Envoyer</button>
             </div>
         </div>
     </form>

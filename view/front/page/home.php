@@ -5,19 +5,17 @@
 <?php $nav = ob_get_clean(); ?>
 
 <?php ob_start(); ?>
-    <h2>Bienvenue sur mon blog</h2>
-    <section>
-        <p>Message de présentation du site</p>
-    </section>
+    <h2 class='text-uppercase'>Bienvenue sur mon blog</h2>
+    <?php require('view/front/intro.php'); ?>
     <?php
     if (isset($post))
     {
     ?>
-    <h2>Dernier article</h2>
+    <h2 class='text-uppercase'>Dernier article</h2>
     <?php
-        require('view/front/post.php');
+        require('view/front/posts/post.php');
     }
     ?>
 <?php $content = ob_get_clean(); ?>
 
-<?php require('view/template.php'); ?>
+<?php require('view/front/template.php'); ?>

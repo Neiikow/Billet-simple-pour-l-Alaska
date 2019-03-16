@@ -10,10 +10,10 @@
     if (isset($posts)) {
         foreach ($posts as $post)
         {
-            require('view/front/post.php');
+            require('view/front/posts/post.php');
         }
     }
     ?>
 <?php $content = ob_get_clean(); ?>
 
-<?php require('view/template.php'); ?>
+<?php require('view/front/template.php'); ?>

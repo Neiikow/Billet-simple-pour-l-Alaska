@@ -22,9 +22,9 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                         <div class="navbar-nav">
-                            <a class="nav-item nav-link active" href="index.php?action=accueil">Accueil <span class="sr-only">(current)</span></a>
-                            <a class="nav-item nav-link" href="index.php?action=articles">Articles</a>
-                            <a class="nav-item nav-link" href="index.php?action=contact">Contact</a>
+                            <a class="nav-item nav-link active" href="index.php?page=home">Accueil <span class="sr-only">(current)</span></a>
+                            <a class="nav-item nav-link" href="index.php?page=posts">Articles</a>
+                            <a class="nav-item nav-link" href="index.php?page=contact">Contact</a>
                         </div>
                         <?= $nav ?>
                     </div>
@@ -37,7 +37,7 @@
                             <h5 class="modal-title mx-auto" id="modalTitle">Se connecter</h5>
                         </div>
                         <div class="modal-body row justify-content-md-center">
-                            <form class="col-sm-8" action="index.php?action=login" method="post">
+                            <form class="col-sm-8" action="index.php" method="post">
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="login" placeholder="Identifiant" required>
                                 </div>
@@ -48,7 +48,7 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                            <button type="button" name='sign-in' class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                         </div>
                     </div>
                 </div>

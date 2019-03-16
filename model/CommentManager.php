@@ -30,6 +30,14 @@ class CommentManager extends DbManager
         
         return $comments;
     }
+    public function getComment($id)
+    {
+        $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = ? ORDER BY id');
+        $req->execute(array($id));
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+        
+        return new Comment($data);
+    }
     public function initComment()
     {
         
@@ -42,8 +50,11 @@ class CommentManager extends DbManager
     {
         
     }
-    public function reportComment()
+    public function reportComment(Comment $comment)
     {
-        
+        $req = $this->db->prepare('UPDATE  ' . $this->table . '  SET reported = :reported WHERE id = :id');
+        $req->bindValue(':reported', 1, PDO::PARAM_INT);
+        $req->bindValue(':id', $comment->id(), PDO::PARAM_INT);
+        $req->execute();
     }
 }

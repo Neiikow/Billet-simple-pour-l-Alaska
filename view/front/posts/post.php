@@ -8,5 +8,5 @@
         </div>
         <p class='btn-sm date font-italic'><strong><?= $post->author() ?></strong> le <?= $post->datePost() ?></p>
     </div>
-    <?php require('view/front/formComment.php'); ?>
+    <?php require('view/front/comments/form.php'); ?>
 </section>

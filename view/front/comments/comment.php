@@ -21,10 +21,14 @@ if (count($commentsPost) > 0)
                     <p><strong><?= $commentPost->author() ?></strong></p>
                     <p class='date'> le <?= $commentPost->datePost() ?></p>
                 </td>
-                <td class='col'>
+                <td class='col <?php if ($commentPost->reported()) { echo 'reported'; }; ?>'>
                     <p><?= $commentPost->text() ?></p>
                     <hr>
-                    <button type='button' class='text-right btn btn-link btn-sm'><strong>Signaler</strong></button>
+                    <a href="index.php?page=<?php echo $_GET['page']; ?>&action=report&id=<?= $commentPost->id() ?>">
+                        <button type='button' name='report' class='text-right btn btn-link btn-sm <?php if ($commentPost->reported()) { echo 'invisible'; }; ?>'>
+                            Signaler
+                        </button>
+                    </a>
                 </td>
             </tr>
         <?php

@@ -1,32 +1,30 @@
-<?php
-$commentsPost = [];
-foreach ($comments as $comment)
-{
-    if ($comment->postId() === $post->id())
-    {
-        $commentsPost[] = $comment;
-    }
-}
-if (count($commentsPost) > 0)
-{
-?>
 <table class='table table-striped table-bordered'>
     <tbody>
         <?php
-        foreach ($commentsPost as $commentPost)
+        foreach ($comments as $comment)
         {
+            $commentId = htmlspecialchars($comment->id());
+            $commentText = htmlspecialchars($comment->text());
+            $commentAuthor = htmlspecialchars($comment->author());
+            $commentDate = htmlspecialchars($comment->datePost());
+            $reported = $comment->reported();
         ?>
-            <tr id='comment<?= $commentPost->id() ?>' class='row'>
+            <tr id='comment<?= $commentId ?>' class='row'>
                 <td class='col-md-2 text-center pl-1 pr-1'>
-                    <p><strong><?= $commentPost->author() ?></strong></p>
-                    <p class='date'> le <?= $commentPost->datePost() ?></p>
+                    <p><strong><?= $commentAuthor ?></strong></p>
+                    <p class='date'> le <?= $commentDate ?></p>
                 </td>
-                <td class='col <?php if ($commentPost->reported()) { echo 'reported'; }; ?>'>
-                    <p><?= $commentPost->text() ?></p>
+                <td class='col <?php if ($reported) { echo 'reported'; }; ?>'>
+                    <p><?= $commentText ?></p>
                     <hr>
-                    <a href="index.php?page=<?php echo $_GET['page']; ?>&action=report&id=<?= $commentPost->id() ?>">
-                        <button type='button' name='report' class='text-right btn btn-link btn-sm <?php if ($commentPost->reported()) { echo 'invisible'; }; ?>'>
+                    <a href="index.php?page=<?php echo $_GET['page']; ?>&action=report&id=<?= $commentId ?>">
+                        <button type='button' name='report' class='text-right btn btn-link btn-sm <?php if ($reported) { echo 'invisible'; }; ?>'>
                             Signaler
+                        </button>
+                    </a>
+                    <a href="index.php?page=<?php echo $_GET['page']; ?>&action=delete&id=<?= $commentId ?>">
+                        <button type='button' name='delete' class='text-right btn btn-link btn-sm <?php if ($reported) { echo 'invisible'; }; ?>'>
+                            Supprimer
                         </button>
                     </a>
                 </td>
@@ -36,6 +34,3 @@ if (count($commentsPost) > 0)
         ?>
     </tbody>
 </table>
-<?php
-}
-?>

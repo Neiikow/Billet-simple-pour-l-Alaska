@@ -5,7 +5,7 @@
 <?php $nav = ob_get_clean(); ?>
 
 <?php ob_start(); ?>
-    <h2 class='text-uppercase'>Bienvenue sur mon blog</h2>
+    <h2 class='text-uppercase'>Bienvenue</h2>
     <?php require('view/front/intro.php'); ?>
     <?php
     if (isset($post))

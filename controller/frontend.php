@@ -6,25 +6,54 @@ require_once('model/CommentManager.php');
 function lastPost()
 {
     $postManager = new PostManager('posts');
-    $post = $postManager->getLastPost();
-    $commentManager = new CommentManager('comments');
-    $comments = $commentManager->getPostComments($post->id());
-    require('view/front/page/home.php');
+    
+    return $postManager->getLastPost();
 }
-function listPosts()
+function posts()
 {
     $postManager = new PostManager('posts');
-    $posts = $postManager->getPosts();
+
+    return $postManager->getPosts();
+}
+function post($idPost)
+{
+    $postManager = new PostManager('posts');
+
+    return $postManager->getPost($idPost);
+}
+function comments($idPost)
+{
     $commentManager = new CommentManager('comments');
-    $comments = $commentManager->getComments();
-    require('view/front/page/posts.php');
+
+    return $commentManager->getComments($idPost);
+}
+function comment($idComment)
+{
+    $commentManager = new CommentManager('comments');
+
+    return $commentManager->getComment($idComment);
 }
 function contact()
 {
     require('view/front/page/contact.php');
 }
-function report($id)
+function report($idid)
 {
     $commentManager = new CommentManager('comments');
     $commentManager->reportComment($commentManager->getComment($id));
+}
+function addComment($comment)
+{
+    $commentManager = new CommentManager('comments');
+    $commentManager->initComment($comment);
+}
+function addPost($post)
+{
+    $postManager = new PostManager('posts');
+    $postManager->initPostt($post);
+}
+function delete($id)
+{
+    $commentManager = new CommentManager('comments');
+    $commentManager->deleteComment($commentManager->getComment($id));
 }

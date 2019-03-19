@@ -1,12 +1,22 @@
 <?php
-require('controller/frontend.php');
+require_once('controller/frontend.php');
 
 
 if (isset($_POST['new-post'])) {
-    echo "Add Post";
+    $post = new Post([
+        'author' => $_POST['author'],
+        'text' => $_POST['text'],
+        'title' => $_POST['title']
+    ]);
+    addPost($post);
 }
 elseif (isset($_POST['new-com'])) {
-    echo "Add Com";
+    $comment = new Comment([
+        'author' => $_POST['author'],
+        'text' => $_POST['text'],
+        'postId' => $_GET['post']
+    ]);
+    addComment($comment);
 }
 elseif (isset($_POST['new-email'])) {
     echo "Send Email";
@@ -15,10 +25,19 @@ elseif (isset($_POST['sign-in'])) {
     echo "Login";
 }
 if (isset($_GET['action'])) {
+    $id = (int)$_GET['id'];
     switch($_GET['action'])
     {
         case "report":
-            report((int)$_GET['id']);
+            report($id);
+            break;
+
+        case "showComments":
+            $comments = comments($id);
+            break;
+
+        case "delete":
+            delete($id);
             break;
     }
 }
@@ -26,11 +45,13 @@ if (isset($_GET['page'])) {
     switch($_GET['page'])
     {
         case "home":	
-            lastPost();
+            $post = lastPost();
+            require('view/front/page/home.php');
             break;
 
         case "posts":
-            listPosts();
+            $posts = posts();
+            require('view/front/page/posts.php');
             break;
 
         case "contact":	
@@ -40,5 +61,6 @@ if (isset($_GET['page'])) {
 }
 else {
     $_GET['page'] = 'home';
-    lastPost();
+    $post = lastPost();
+    require('view/front/page/home.php');
 }

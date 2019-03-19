@@ -30,7 +30,6 @@ h3 {
 }
 .comments {
     border-top: solid black 1px;
-    display: none;
 }
 .reported {
     background: rgba(255, 0, 0, 0.212);

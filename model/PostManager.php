@@ -61,4 +61,11 @@ class PostManager extends DbManager
     {
         $this->db->query('DELETE FROM  ' . $this->table . '  WHERE id =' . $post->id());
     }
+    public function countPost()
+    {
+        $req = $this->db->query('SELECT COUNT(*) FROM ' . $this->table);
+        $nb = $req->fetch(PDO::FETCH_ASSOC);
+        
+        return (int) $nb['COUNT(*)'];
+    }
 }

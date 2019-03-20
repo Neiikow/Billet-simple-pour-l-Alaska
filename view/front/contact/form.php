@@ -20,7 +20,7 @@
         </div>
         <div class='row form-group'>
             <div class='col'>
-                <button type='submit' name='new-email' class='btn btn-primary'>Envoyer</button>
+                <button type='submit' name='new-email' class='btn btn-outline-dark'>Envoyer</button>
             </div>
         </div>
     </form>

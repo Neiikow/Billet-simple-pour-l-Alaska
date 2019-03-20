@@ -12,7 +12,7 @@ $postDate = htmlspecialchars($post->datePost());
     <div class='post-option d-flex justify-content-between align-items-center flex-wrap'>
         <div class='d-flex flex-nowrap'>
             <a href="javascript:window.location.href='index.php?page=<?= $_GET['page']; ?>&action=showComments&id=<?= $postId ?>'+'&scroll='+document.documentElement.scrollTop">
-                <button type='button' name='report' class='comment-btn btn btn-link btn-sm'>
+                <button type='button' name='report' class='comment-btn btn btn-link text-info btn-sm'>
                     Commentaire(s)
                 </button>
             </a>

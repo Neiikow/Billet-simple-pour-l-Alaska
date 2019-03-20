@@ -1,19 +1,27 @@
-<nav aria-label="Page navigation example">
-    <ul class="pagination pagination-sm justify-content-center">
-        <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-            <span class="sr-only">Previous</span>
+<div class='d-flex justify-content-between'>
+    <div>
+        <a href="index.php?page=<?= $_GET['page']; ?>&action=first&id=<?= $postId ?>">
+            <button type='button' name='first' class='btn btn-outline-dark btn-sm'>
+                Premier
+            </button>
         </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-            <span class="sr-only">Next</span>
+        <a href="index.php?page=<?= $_GET['page']; ?>&action=prev&id=<?= $postId ?>">
+            <button type='button' name='prev' class='btn btn-outline-dark btn-sm'>
+                Précédent
+            </button>
         </a>
-        </li>
-    </ul>
-</nav>
+    </div>
+    <p class="font-italic">Page : ? sur <?= $nbPost ?></p>
+    <div>
+        <a href="index.php?page=<?= $_GET['page']; ?>&action=next&id=<?= $postId ?>">
+            <button type='button' name='next' class='btn btn-outline-dark btn-sm'>
+                Suivant
+            </button>
+        </a>
+        <a href="index.php?page=<?= $_GET['page']; ?>&action=last&id=<?= $postId ?>">
+            <button type='button' name='last' class='btn btn-outline-dark btn-sm'>
+                Dernier
+            </button>
+        </a>
+    </div>
+</div>

@@ -53,6 +53,7 @@ if (isset($_GET['page'])) {
 
         case "posts":
             $post = firstPost();
+            $nbPost = countPost();
             require('view/front/page/posts.php');
             break;
 

@@ -21,6 +21,12 @@ function posts()
 
     return $postManager->getPosts();
 }
+function countPost()
+{
+    $postManager = new PostManager('posts');
+
+    return $postManager->countPost();
+}
 function post($idPost)
 {
     $postManager = new PostManager('posts');

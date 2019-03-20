@@ -34,6 +34,13 @@ class PostManager extends DbManager
         
         return new Post($data);
     }
+    public function getFirstPost()
+    {
+        $req = $this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY id LIMIT 1');
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+        
+        return new Post($data);
+    }
     public function initPost(Post $post)
     {
         $req = $this->db->prepare('INSERT INTO ' . $this->table . '(title, author, text) VALUES(:title, :author, :text)');

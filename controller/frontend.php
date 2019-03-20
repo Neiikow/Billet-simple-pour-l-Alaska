@@ -9,6 +9,12 @@ function lastPost()
     
     return $postManager->getLastPost();
 }
+function firstPost()
+{
+    $postManager = new PostManager('posts');
+    
+    return $postManager->getFirstPost();
+}
 function posts()
 {
     $postManager = new PostManager('posts');
@@ -56,4 +62,9 @@ function delete($id)
 {
     $commentManager = new CommentManager('comments');
     $commentManager->deleteComment($commentManager->getComment($id));
+}
+function edit($id)
+{
+    $commentManager = new CommentManager('comments');
+    $commentManager->editComment($commentManager->getComment($id));
 }

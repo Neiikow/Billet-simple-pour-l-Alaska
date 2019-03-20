@@ -1,7 +1,6 @@
 <?php
 require_once('controller/frontend.php');
 
-
 if (isset($_POST['new-post'])) {
     $post = new Post([
         'author' => $_POST['author'],
@@ -17,6 +16,9 @@ elseif (isset($_POST['new-com'])) {
         'postId' => $_GET['post']
     ]);
     addComment($comment);
+}
+elseif (isset($_POST['edit-com'])) {
+    echo "Edit com";
 }
 elseif (isset($_POST['new-email'])) {
     echo "Send Email";
@@ -50,7 +52,7 @@ if (isset($_GET['page'])) {
             break;
 
         case "posts":
-            $posts = posts();
+            $post = firstPost();
             require('view/front/page/posts.php');
             break;
 

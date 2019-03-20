@@ -15,15 +15,17 @@
                     <p class='date'> le <?= $commentDate ?></p>
                 </td>
                 <td class='col <?php if ($reported) { echo 'reported'; }; ?>'>
-                    <p><?= $commentText ?></p>
+                    <p>
+                    <?= $commentText ?>
+                    </p>
                     <hr>
-                    <a href="index.php?page=<?php echo $_GET['page']; ?>&action=report&id=<?= $commentId ?>">
+                    <a href="index.php?page=<?= $_GET['page']; ?>&action=report&id=<?= $commentId ?>">
                         <button type='button' name='report' class='text-right btn btn-link btn-sm <?php if ($reported) { echo 'invisible'; }; ?>'>
                             Signaler
                         </button>
                     </a>
-                    <a href="index.php?page=<?php echo $_GET['page']; ?>&action=delete&id=<?= $commentId ?>">
-                        <button type='button' name='delete' class='text-right btn btn-link btn-sm <?php if ($reported) { echo 'invisible'; }; ?>'>
+                    <a href="index.php?page=<?= $_GET['page']; ?>&action=delete&id=<?= $commentId ?>">
+                        <button type='button' name='delete' class='text-right btn btn-link btn-sm'>
                             Supprimer
                         </button>
                     </a>

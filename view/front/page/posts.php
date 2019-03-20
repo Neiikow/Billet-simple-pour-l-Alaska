@@ -7,11 +7,8 @@
 <?php ob_start(); ?>
     <h2 class='text-uppercase'>Tous les articles</h2>
     <?php
-    if (isset($posts)) {
-        foreach ($posts as $post)
-        {
-            require('view/front/posts/post.php');
-        }
+    if (isset($post)) {
+        require('view/front/posts/post.php');
     }
     ?>
 <?php $content = ob_get_clean(); ?>

@@ -28,7 +28,7 @@ h3 {
 .post {
     padding-bottom: 0px;
 }
-.comments {
+#comments {
     border-top: solid black 1px;
 }
 .reported {

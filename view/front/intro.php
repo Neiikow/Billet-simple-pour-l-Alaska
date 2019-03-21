@@ -1,4 +1,4 @@
-<section class='jumbotron'>
+<section class='jumbotron border border-dark'>
     <div class='row text-center'>
         <div class='col'>
             <h5>Fonctions terminées :</h5>

@@ -1,6 +1,8 @@
 <?php
 require_once('controller/frontend.php');
 
+//echo "<br><br><br><br><br>";
+
 if (isset($_POST['new-post'])) {
     $post = new Post([
         'author' => $_POST['author'],
@@ -27,14 +29,33 @@ elseif (isset($_POST['sign-in'])) {
     echo "Login";
 }
 if (isset($_GET['action'])) {
-    $id = (int)$_GET['id'];
+    if (isset($_GET['id'])) {
+        $id = (int)$_GET['id'];
+    }
     switch($_GET['action'])
     {
+        case "first":
+            $post = firstPost();
+            break;
+
+        case "last":
+            $post = lastPost();
+            break;
+
+        case "next":
+            $post = nextPost();
+            break;
+
+        case "prev":
+            $post = prevPost();
+            break;
+
         case "report":
             report($id);
             break;
 
-        case "showComments":
+        case "show":
+            $post = post($id);
             $comments = comments($id);
             break;
 
@@ -46,13 +67,17 @@ if (isset($_GET['action'])) {
 if (isset($_GET['page'])) {
     switch($_GET['page'])
     {
-        case "home":	
-            $post = lastPost();
+        case "home":
+            if (!isset($post)) {
+                $post = lastPost();	
+            }
             require('view/front/page/home.php');
             break;
 
         case "posts":
-            $post = firstPost();
+            if (!isset($post)) {
+                $post = firstPost();	
+            }
             $nbPost = countPost();
             require('view/front/page/posts.php');
             break;

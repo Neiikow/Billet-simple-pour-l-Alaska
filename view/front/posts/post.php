@@ -5,13 +5,13 @@ $postText = htmlspecialchars($post->text());
 $postAuthor = htmlspecialchars($post->author());
 $postDate = htmlspecialchars($post->datePost());
 ?>
-<section id='post<?= $postId ?>' class='post jumbotron'>
+<section id='post<?= $postId ?>' class='post jumbotron border border-dark'>
     <h3><?= $postTitle ?></h3>
     <p><?= $postText ?></p>
     <hr>
     <div class='post-option d-flex justify-content-between align-items-center flex-wrap'>
         <div class='d-flex flex-nowrap'>
-            <a href="javascript:window.location.href='index.php?page=<?= $_GET['page']; ?>&action=showComments&id=<?= $postId ?>'+'&scroll='+document.documentElement.scrollTop">
+            <a href="javascript:window.location.href='index.php?page=<?= $_GET['page']; ?>&action=show&id=<?= $postId ?>'+'&scroll='+document.documentElement.scrollTop">
                 <button type='button' name='report' class='comment-btn btn btn-link text-info btn-sm'>
                     Commentaire(s)
                 </button>

@@ -22,8 +22,8 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                         <div class="navbar-nav">
-                            <a class="nav-item nav-link active" href="index.php?page=home">Accueil <span class="sr-only">(current)</span></a>
-                            <a class="nav-item nav-link" href="index.php?page=posts">Articles</a>
+                            <a class="nav-item nav-link active" href="index.php?page=home&action=last">Accueil <span class="sr-only">(current)</span></a>
+                            <a class="nav-item nav-link" href="index.php?page=posts&action=first">Articles</a>
                             <a class="nav-item nav-link" href="index.php?page=contact">Contact</a>
                         </div>
                         <?= $nav ?>

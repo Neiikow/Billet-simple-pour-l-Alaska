@@ -6,7 +6,7 @@
 
 <?php ob_start(); ?>
     <h2 class='text-uppercase'>Me contacter</h2>
-    <section class='jumbotron row pl-0 pr-0'>
+    <section class='jumbotron row pl-0 pr-0 border border-dark'>
         <div class='col-md-8 border-right border-secondary'>
             <?php require('view/front/contact/form.php'); ?>
         </div>

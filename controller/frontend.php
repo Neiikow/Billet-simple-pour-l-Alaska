@@ -15,6 +15,18 @@ function firstPost()
     
     return $postManager->getFirstPost();
 }
+function nextPost()
+{
+    $postManager = new PostManager('posts');
+
+    return $postManager->getPosts();
+}
+function prevPost()
+{
+    $postManager = new PostManager('posts');
+
+    return $postManager->getPosts();
+}
 function posts()
 {
     $postManager = new PostManager('posts');

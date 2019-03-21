@@ -57,7 +57,7 @@
         <div id="content" class="container">
             <?= $content ?>
         </div>
-        <footer class="bg-dark text-white"></footer>
+        <footer class="bg-dark text-white fixed-bottom"></footer>
         <script src="public/js/init.js"></script>
     </body>
 </html>

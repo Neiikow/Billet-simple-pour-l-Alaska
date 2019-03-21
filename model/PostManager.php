@@ -19,6 +19,32 @@ class PostManager extends DbManager
         
         return $posts;
     }
+    public function getNext($id)
+    {
+        $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id > ? ORDER BY id ASC LIMIT 1');
+        $req->execute(array($id));
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+        if ($data) {
+            return new Post($data);
+        }
+    }
+    public function getPrev($id)
+    {
+        $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id < ? ORDER BY id DESC LIMIT 1');
+        $req->execute(array($id));
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+        if ($data) {
+            return new Post($data);
+        }
+    }
+    public function getRow($id)
+    {
+        $req = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE id <= ? ORDER BY id');
+        $req->execute(array($id));
+        $nb = $req->fetch(PDO::FETCH_ASSOC);
+        
+        return (int) $nb['COUNT(*)'];
+    }
     public function getPost($id)
     {
         $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = ? ORDER BY id');

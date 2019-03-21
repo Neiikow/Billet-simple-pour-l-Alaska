@@ -6,6 +6,7 @@ class Post
     private $_author;
     private $_datePost;
     private $_text;
+    private $_nb;
 
     public function __construct($data)
     {
@@ -53,6 +54,10 @@ class Post
     {
         $this->_datePost = $datePost;
     }
+    public function setNb($nb)
+    {
+        $this->_nb = $nb;
+    }
 
     public function id() { return $this->_id; }
     public function title() { return $this->_title; }
@@ -60,4 +65,5 @@ class Post
     public function datePost() { return $this->_datePost; }
     public function text() { return $this->_text; }
     public function postContent() { return $this->_postContent; }
+    public function nb() { return $this->_nb; }
 }

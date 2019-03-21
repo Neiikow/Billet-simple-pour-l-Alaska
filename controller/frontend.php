@@ -15,17 +15,23 @@ function firstPost()
     
     return $postManager->getFirstPost();
 }
-function nextPost()
+function nextPost($id)
 {
     $postManager = new PostManager('posts');
 
-    return $postManager->getPosts();
+    return $postManager->getNext($id);
 }
-function prevPost()
+function prevPost($id)
 {
     $postManager = new PostManager('posts');
 
-    return $postManager->getPosts();
+    return $postManager->getPrev($id);
+}
+function rowPost($id)
+{
+    $postManager = new PostManager('posts');
+
+    return $postManager->getRow($id);
 }
 function posts()
 {

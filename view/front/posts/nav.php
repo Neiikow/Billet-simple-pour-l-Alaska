@@ -11,7 +11,7 @@
             </button>
         </a>
     </div>
-    <p class="font-italic">Page : ? sur <?= $nbPost ?></p>
+    <p class="font-italic">Page : <?= $currentPost ?> sur <?= $totalPost ?></p>
     <div>
         <a href="index.php?page=<?= $_GET['page']; ?>&action=next&id=<?= $postId ?>">
             <button type='button' name='next' class='btn btn-outline-dark btn-sm'>

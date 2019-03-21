@@ -43,11 +43,21 @@ if (isset($_GET['action'])) {
             break;
 
         case "next":
-            $post = nextPost();
+            if (nextPost($id)) {
+                $post = nextPost($id);
+            }
+            else {
+                $post = post($id);
+            }
             break;
 
         case "prev":
-            $post = prevPost();
+            if (prevPost($id)) {
+                $post = prevPost($id);
+            }
+            else {
+                $post = post($id);
+            }
             break;
 
         case "report":
@@ -76,9 +86,10 @@ if (isset($_GET['page'])) {
 
         case "posts":
             if (!isset($post)) {
-                $post = firstPost();	
+                $post = firstPost();
             }
-            $nbPost = countPost();
+            $currentPost = rowPost($post->id());
+            $totalPost = countPost();
             require('view/front/page/posts.php');
             break;
 

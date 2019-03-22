@@ -33,3 +33,9 @@ h3 {
 .reported {
     background: rgba(255, 0, 0, 0.212);
 }
+a:hover {
+    text-decoration-line: none;
+}
+.dash {
+    margin-top : -24px;
+}

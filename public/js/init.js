@@ -25,3 +25,9 @@ if ((d+f)>w) {
     $('footer').removeClass("fixed-bottom");
 }
 
+//Gestion de la position du dashboard navigation
+const hDash = w-56;
+$('.dash-nav').css({
+    minHeight: hDash
+})
+

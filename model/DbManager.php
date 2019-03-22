@@ -1,7 +1,7 @@
 <?php
 class DbManager
 {
-    protected function dbConnect()
+    public function dbConnect()
     {
         require('dbConfig.php');
         try

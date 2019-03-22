@@ -1,94 +1,32 @@
 <?php
-require_once('model/DbManager.php');
-require_once('model/PostManager.php');
+require_once('model/ArticleManager.php');
 require_once('model/CommentManager.php');
 
-function lastPost()
+function table($table)
 {
-    $postManager = new PostManager('posts');
-    
-    return $postManager->getLastPost();
-}
-function firstPost()
-{
-    $postManager = new PostManager('posts');
-    
-    return $postManager->getFirstPost();
-}
-function nextPost($id)
-{
-    $postManager = new PostManager('posts');
+    if ($table === 'articles') {
+        $manager = new ArticleManager($table);
+    }
+    elseif ($table === 'comments') {
+        $manager = new CommentManager($table);
+    }
 
-    return $postManager->getNext($id);
+    return $manager;
 }
-function prevPost($id)
-{
-    $postManager = new PostManager('posts');
 
-    return $postManager->getPrev($id);
-}
-function rowPost($id)
-{
-    $postManager = new PostManager('posts');
+function posts($table){ return table($table)->getPosts(); }
+function post($table, $idPost) { return table($table)->getPost($idPost); }
+function firstPost($table){ return table($table)->getFirst(); }
+function lastPost($table){ return table($table)->getLast(); }
+function nextPost($table, $id){ return table($table)->getNext($id); }
+function prevPost($table, $id){ return table($table)->getPrev($id); }
+function rowPost($table, $id){ return table($table)->getRow($id); }
+function countPosts($table){ return table($table)->getCount(); }
+function postComments($table, $idPost){ return table($table)->postComments($idPost); }
 
-    return $postManager->getRow($id);
-}
-function posts()
-{
-    $postManager = new PostManager('posts');
+function deletePost($table, $id){ table($table)->deletePost(table($table)->getPost($id)); }
+function reportPost($table, $id){ table($table)->reportPost(table($table)->getPost($id)); }
+function addPost($table, $data){ table($table)->addPost($data); }
+function editPost($table, $id){ table($table)->editPost(table($table)->getPost($id)); }
 
-    return $postManager->getPosts();
-}
-function countPost()
-{
-    $postManager = new PostManager('posts');
-
-    return $postManager->countPost();
-}
-function post($idPost)
-{
-    $postManager = new PostManager('posts');
-
-    return $postManager->getPost($idPost);
-}
-function comments($idPost)
-{
-    $commentManager = new CommentManager('comments');
-
-    return $commentManager->getComments($idPost);
-}
-function comment($idComment)
-{
-    $commentManager = new CommentManager('comments');
-
-    return $commentManager->getComment($idComment);
-}
-function contact()
-{
-    require('view/front/page/contact.php');
-}
-function report($idid)
-{
-    $commentManager = new CommentManager('comments');
-    $commentManager->reportComment($commentManager->getComment($id));
-}
-function addComment($comment)
-{
-    $commentManager = new CommentManager('comments');
-    $commentManager->initComment($comment);
-}
-function addPost($post)
-{
-    $postManager = new PostManager('posts');
-    $postManager->initPostt($post);
-}
-function delete($id)
-{
-    $commentManager = new CommentManager('comments');
-    $commentManager->deleteComment($commentManager->getComment($id));
-}
-function edit($id)
-{
-    $commentManager = new CommentManager('comments');
-    $commentManager->editComment($commentManager->getComment($id));
-}
+function contact(){ require('view/front/page/contact.php'); }

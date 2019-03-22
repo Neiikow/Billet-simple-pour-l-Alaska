@@ -1,12 +1,10 @@
 <?php
-class Post
+abstract class Post
 {
     private $_id;
-    private $_title;
     private $_author;
     private $_datePost;
     private $_text;
-    private $_nb;
 
     public function __construct($data)
     {
@@ -25,13 +23,6 @@ class Post
       }
     }
 
-    public function setTitle($title)
-    {
-        if (is_string($title))
-        {
-            $this->_title = $title;
-        }
-    }
     public function setAuthor($author)
     {
         if (is_string($author))
@@ -54,16 +45,9 @@ class Post
     {
         $this->_datePost = $datePost;
     }
-    public function setNb($nb)
-    {
-        $this->_nb = $nb;
-    }
 
     public function id() { return $this->_id; }
-    public function title() { return $this->_title; }
     public function author() { return $this->_author; }
     public function datePost() { return $this->_datePost; }
     public function text() { return $this->_text; }
-    public function postContent() { return $this->_postContent; }
-    public function nb() { return $this->_nb; }
 }

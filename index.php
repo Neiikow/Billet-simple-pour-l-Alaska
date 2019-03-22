@@ -4,12 +4,12 @@ require_once('controller/frontend.php');
 //echo "<br><br><br><br><br>";
 
 if (isset($_POST['new-post'])) {
-    $post = new Post([
+    $article = new Article([
         'author' => $_POST['author'],
         'text' => $_POST['text'],
         'title' => $_POST['title']
     ]);
-    addPost($post);
+    addPost('articles', $article);
 }
 elseif (isset($_POST['new-com'])) {
     $comment = new Comment([
@@ -17,10 +17,23 @@ elseif (isset($_POST['new-com'])) {
         'text' => $_POST['text'],
         'postId' => $_GET['post']
     ]);
-    addComment($comment);
+    addPost('comments', $comment);
+}
+elseif (isset($_POST['edit-post'])) {
+    $article = new Article([
+        'author' => $_POST['author'],
+        'text' => $_POST['text'],
+        'title' => $_GET['post']
+    ]);
+    editPost('articles', $article);
 }
 elseif (isset($_POST['edit-com'])) {
-    echo "Edit com";
+    $comment = new Comment([
+        'author' => $_POST['author'],
+        'text' => $_POST['text'],
+        'postId' => $_GET['post']
+    ]);
+    editPost('comments', $comment);
 }
 elseif (isset($_POST['new-email'])) {
     echo "Send Email";
@@ -34,43 +47,47 @@ if (isset($_GET['action'])) {
     }
     switch($_GET['action'])
     {
+        case "posts":
+            $posts = posts('articles');
+            break;
+        case "comments":
+            $comments = posts('comments');
+            break;
         case "first":
-            $post = firstPost();
+            if (posts('articles')) {
+                $post = firstPost('articles');
+            }
             break;
-
         case "last":
-            $post = lastPost();
+            if (posts('articles')) {
+                $post = lastPost('articles');
+            }
             break;
-
         case "next":
-            if (nextPost($id)) {
-                $post = nextPost($id);
+            if (nextPost('articles', $id)) {
+                $post = nextPost('articles', $id);
             }
             else {
-                $post = post($id);
+                $post = post('articles', $id);
             }
             break;
-
         case "prev":
-            if (prevPost($id)) {
-                $post = prevPost($id);
+            if (prevPost('articles', $id)) {
+                $post = prevPost('articles', $id);
             }
             else {
-                $post = post($id);
+                $post = post('articles', $id);
             }
             break;
-
         case "report":
-            report($id);
+            reportPost('comments', $id);
             break;
-
         case "show":
-            $post = post($id);
-            $comments = comments($id);
+            $post = post('articles', $id);
+            $comments = postComments('comments', $id);
             break;
-
         case "delete":
-            delete($id);
+            deletePost('comments', $id);
             break;
     }
 }
@@ -78,28 +95,35 @@ if (isset($_GET['page'])) {
     switch($_GET['page'])
     {
         case "home":
-            if (!isset($post)) {
-                $post = lastPost();	
+            if (posts('articles')) {
+                if (!isset($post)) {
+                    $post = lastPost('articles');	
+                }
             }
-            require('view/front/page/home.php');
+            require_once('view/front/page/home.php');
             break;
-
         case "posts":
-            if (!isset($post)) {
-                $post = firstPost();
+            if (posts('articles')) {
+                if (!isset($post)) {
+                    $post = firstPost('articles');
+                }
+                $currentPost = rowPost('articles', $post->id());
+                $totalPost = countPosts('articles');
             }
-            $currentPost = rowPost($post->id());
-            $totalPost = countPost();
-            require('view/front/page/posts.php');
+            require_once('view/front/page/posts.php');
             break;
-
         case "contact":	
             contact();
+            break;
+        case "dashboard":
+            require_once('view/back/index.php');
             break;
     }
 }
 else {
     $_GET['page'] = 'home';
-    $post = lastPost();
-    require('view/front/page/home.php');
+    if (posts('articles')) {
+        $post = lastPost('articles');
+    }
+    require_once('view/front/page/home.php');
 }

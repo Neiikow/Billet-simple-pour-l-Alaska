@@ -23,45 +23,7 @@
     </head>
     <body class="text-dark">
         <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
-                <div class="container">
-                    <a class="navbar-brand" href="?">Billet simple pour l'Alaska</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
-                            <a class="nav-item nav-link active" href="index.php?page=home&action=last">Accueil <span class="sr-only">(current)</span></a>
-                            <a class="nav-item nav-link" href="index.php?page=posts&action=first">Articles</a>
-                            <a class="nav-item nav-link" href="index.php?page=contact">Contact</a>
-                        </div>
-                        <?= $nav ?>
-                    </div>
-                </div>
-            </nav>
-            <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLogin" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title mx-auto" id="modalTitle">Se connecter</h5>
-                        </div>
-                        <div class="modal-body row justify-content-md-center">
-                            <form class="col-sm-8" action="index.php" method="post">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="login" placeholder="Identifiant" required>
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control" name="password" placeholder="Mot de passe" required>
-                                </div>
-                                <button type="submit" class="btn btn-primary w-100">Connexion</button>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" name='sign-in' class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?= $nav ?>
         </header>
         <div id="content" class="container<?php if($_GET['page'] === "admin") { echo "-fluid"; }; ?>">
             <?= $content ?>

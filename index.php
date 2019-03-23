@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION['role'] = 'visitor';
+//$_SESSION['role'] = 'admin';
 require_once('controller/frontend.php');
 
 //echo "<br><br><br><br><br>";
@@ -120,6 +120,8 @@ try {
             case "admin":
             if ($_SESSION['role'] === 'admin') {
                 require_once('view/back/index.php');
+            } else {
+                echo 'Page protégée';
             }
                 break;
         }

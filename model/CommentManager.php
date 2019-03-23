@@ -23,20 +23,20 @@ class CommentManager extends PostManager
         
         return $comments;
     }
-    public function addPost(Comment $comment)
+    public function addPost(Comment $post)
     {
         $req = $this->db->prepare('INSERT INTO ' . $this->table . '(postId, author, text) VALUES(:postId, :author, :text)');
-        $req->bindValue(':postId', $comment->postId(), PDO::PARAM_INT);
-        $req->bindValue(':text', $comment->text(), PDO::PARAM_STR);
-        $req->bindValue(':author', $comment->author(), PDO::PARAM_STR);
+        $req->bindValue(':postId', $post->postId(), PDO::PARAM_INT);
+        $req->bindValue(':text', $post->text(), PDO::PARAM_STR);
+        $req->bindValue(':author', $post->author(), PDO::PARAM_STR);
         $req->execute();
     }
-    public function editPost(Comment $comment)
+    public function editPost(Comment $post)
     {
         $req = $this->db->prepare('UPDATE  ' . $this->table . '  SET author = :author, text = :text WHERE id = :id');
-        $req->bindValue(':author', $comment->title(), PDO::PARAM_STR);
-        $req->bindValue(':text', $comment->text(), PDO::PARAM_STR);
-        $req->bindValue(':id', $comment->id(), PDO::PARAM_INT);
+        $req->bindValue(':author', $post->title(), PDO::PARAM_STR);
+        $req->bindValue(':text', $post->text(), PDO::PARAM_STR);
+        $req->bindValue(':id', $post->id(), PDO::PARAM_INT);
         $req->execute();
     }
 }

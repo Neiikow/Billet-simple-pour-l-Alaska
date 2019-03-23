@@ -3,11 +3,6 @@ require_once('model/DbManager.php');
 
 class PostManager extends DbManager
 {
-    public function __construct($table)
-    {
-        $this->db = parent::dbConnect();
-        $this->table = $table;
-    }
     public function getPosts()
     {
         $posts = [];

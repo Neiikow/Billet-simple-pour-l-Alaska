@@ -14,21 +14,21 @@
                     <p><strong><?= $commentAuthor ?></strong></p>
                     <p class='date'> le <?= $commentDate ?></p>
                 </td>
-                <td class='col <?php if ($reported) { echo 'reported'; }; ?>'>
+                <td class='col'>
                     <p>
                     <?= $commentText ?>
                     </p>
                     <hr>
                     <a href="index.php?page=<?= $_GET['page']; ?>&action=report&id=<?= $commentId ?>">
-                        <button type='button' name='report' class='btn btn-link text-info btn-sm <?php if ($reported) { echo 'invisible'; }; ?>'>
+                        <button type='button' name='report' class='btn btn-link text-info btn-sm'>
                             Signaler
                         </button>
                     </a>
-                    <a href="index.php?page=<?= $_GET['page']; ?>&action=delete&id=<?= $commentId ?>">
+                    <!-- <a href="index.php?page=<?= $_GET['page']; ?>&action=delete&id=<?= $commentId ?>">
                         <button type='button' name='delete' class='btn btn-link text-info btn-sm'>
                             Supprimer
                         </button>
-                    </a>
+                    </a> -->
                 </td>
             </tr>
         <?php

@@ -15,7 +15,7 @@
         </div>
         <div class='row form-group'>
             <div class='col'>
-                <textarea required name='text' placeholder='Commentaire' class='form-control' rows="5"></textarea>
+                <textarea required name='text' placeholder='Votre message' class='form-control' rows="5"></textarea>
             </div>
         </div>
         <div class='row form-group'>

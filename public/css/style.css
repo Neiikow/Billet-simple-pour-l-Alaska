@@ -39,3 +39,9 @@ a:hover {
 .dash {
     margin-top : -24px;
 }
+button[name=report] {
+    padding: 0;
+}
+hr {
+    margin-bottom: 10px;
+}

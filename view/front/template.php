@@ -10,6 +10,15 @@
         <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=p0xly4a5mxnufogwi0xzqyrllpkd9304ujh7lnbnjlgnlnbr"></script>
+        <script>tinymce.init({
+            selector:'.tiny',
+            menubar: false,
+            statusbar: false,
+            plugins : 'autoresize advlist autolink link lists',
+            toolbar1: 'undo redo | cut copy paste blockquote | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | fontselect fontsizeselect forecolor backcolor bold italic underline strikethrough',
+        });</script>
+
         <title><?= $title ?> - Billet simple pour l'Alaska</title>
     </head>
     <body class="text-dark">
@@ -22,7 +31,6 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                         <div class="navbar-nav">
-                            <a class="nav-item nav-link" href="index.php?page=dashboard">DashBoard</a>
                             <a class="nav-item nav-link active" href="index.php?page=home&action=last">Accueil <span class="sr-only">(current)</span></a>
                             <a class="nav-item nav-link" href="index.php?page=posts&action=first">Articles</a>
                             <a class="nav-item nav-link" href="index.php?page=contact">Contact</a>
@@ -55,10 +63,10 @@
                 </div>
             </div>
         </header>
-        <div id="content" class="container<?php if($_GET['page'] === "dashboard") { echo "-fluid"; }; ?>">
+        <div id="content" class="container<?php if($_GET['page'] === "admin") { echo "-fluid"; }; ?>">
             <?= $content ?>
         </div>
-        <?php if($_GET['page'] != "dashboard") { echo "<footer class='bg-dark text-white fixed-bottom'></footer>"; }; ?>
+        <?php if($_GET['page'] != "admin") { echo "<footer class='bg-dark text-white fixed-bottom'></footer>"; }; ?>
         <script src='public/js/init.js'></script>
     </body>
 </html>

@@ -1,7 +1,7 @@
 <?php $title = "Administration"; ?>
 
 <?php ob_start(); ?>
-    <button class="btn btn-outline-light" type="button" data-toggle="modal" data-target="#modalLogin">Connexion</button>
+    <?php require('view/front/header/nav.php'); ?>
 <?php $nav = ob_get_clean(); ?>
 
 <?php ob_start(); ?>

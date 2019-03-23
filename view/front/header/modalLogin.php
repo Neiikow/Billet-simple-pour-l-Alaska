@@ -5,14 +5,14 @@
                 <h5 class="modal-title mx-auto" id="modalTitle">Se connecter</h5>
             </div>
             <div class="modal-body row justify-content-md-center">
-                <form class="col-sm-8" action="index.php" method="post">
+                <form class="col-sm-8" action="index.php?page=<?= $_GET['page']; ?>" method="post">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="login" placeholder="Identifiant" required>
+                        <input type="text" class="form-control" name="name" placeholder="Identifiant" required>
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" name="password" placeholder="Mot de passe" required>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Connexion</button>
+                    <button type="submit" name="sign-in" class="btn btn-primary w-100">Connexion</button>
                 </form>
             </div>
             <div class="modal-footer">

@@ -7,7 +7,7 @@ class CommentManager extends PostManager
     public function __construct($table)
     {
         $this->post = "Comment";
-        $this->db = parent::dbConnect();
+        $this->db = $this->dbConnect();
         $this->table = $table;
     }
 

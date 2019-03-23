@@ -1,10 +1,10 @@
 <?php
-abstract class Post
+class Member
 {
     private $_id;
-    private $_author;
-    private $_datePost;
-    private $_text;
+    private $_name;
+    private $_password;
+    private $_role;
 
     public function __construct($data)
     {
@@ -23,31 +23,34 @@ abstract class Post
       }
     }
 
-    public function setAuthor($author)
-    {
-        if (is_string($author))
-        {
-            $this->_author = $author;
-        }
-    }
-    public function setText($text)
-    {
-        if (is_string($text))
-        {
-            $this->_text = $text;
-        }
-    }
     public function setId($id)
     {
         $this->_id = (int) $id;
     }
-    public function setDatePost($datePost)
+    public function setName($name)
     {
-        $this->_datePost = $datePost;
+        if (is_string($name))
+        {
+            $this->_name = $name;
+        }
+    }
+    public function setPassword($password)
+    {
+        if (is_string($password))
+        {
+            $this->_password = $password;
+        }
+    }
+    public function setRole($role)
+    {
+        if (is_string($role))
+        {
+            $this->_role = $role;
+        }
     }
 
     public function id() { return $this->_id; }
-    public function author() { return $this->_author; }
-    public function datePost() { return $this->_datePost; }
-    public function text() { return $this->_text; }
+    public function name() { return $this->_name; }
+    public function password() { return $this->_password; }
+    public function role() { return $this->_role; }
 }

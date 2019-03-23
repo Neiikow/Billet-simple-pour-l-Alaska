@@ -1,8 +1,7 @@
 <?php
 session_start();
-//$_SESSION['role'] = 'admin';
-require_once('controller/frontend.php');
-
+require_once('controller/front/action.php');
+require_once('controller/back/action.php');
 //echo "<br><br><br><br><br>";
 try {
     if (isset($_POST['new-post'])) {
@@ -25,7 +24,7 @@ try {
         $article = new Article([
             'author' => $_POST['author'],
             'text' => $_POST['text'],
-            'title' => $_GET['post']
+            'title' => $_POST['title']
         ]);
         editPost('articles', $article);
     }
@@ -37,11 +36,22 @@ try {
         ]);
         editPost('comments', $comment);
     }
+    elseif (isset($_POST['edit-member'])) {
+        $member = new Member([
+            'name' => $_POST['name'],
+            'password' => $_POST['password'],
+            'role' => $_POST['role']
+        ]);
+        editMember('members', $member);
+    }
     elseif (isset($_POST['new-email'])) {
         echo "Send Email";
     }
     elseif (isset($_POST['sign-in'])) {
-        echo "Login";
+        $user = login('members', $_POST['name'], $_POST['password']);
+        if ($user) {
+            $_SESSION['role'] = $user->role();
+        }
     }
     if (isset($_GET['action'])) {
         if (isset($_GET['id'])) {
@@ -88,8 +98,14 @@ try {
                 $post = post('articles', $id);
                 $comments = postComments('comments', $id);
                 break;
+            case "edit":
+                
+                break;
             case "delete":
                 deletePost('comments', $id);
+                break;
+            case "logout":
+                $_SESSION['role'] = 'visitor';
                 break;
         }
     }
@@ -102,7 +118,7 @@ try {
                         $post = lastPost('articles');	
                     }
                 }
-                require_once('view/front/page/home.php');
+                require('view/front/page/'. $_GET['page'] .'.php');
                 break;
             case "posts":
                 if (posts('articles')) {
@@ -112,26 +128,26 @@ try {
                     $currentPost = rowPost('articles', $post->id());
                     $totalPost = countPosts('articles');
                 }
-                require_once('view/front/page/posts.php');
+                require('view/front/page/'. $_GET['page'] .'.php');
                 break;
             case "contact":	
-                contact();
+                require('view/front/page/'. $_GET['page'] .'.php');
                 break;
             case "admin":
-            if ($_SESSION['role'] === 'admin') {
-                require_once('view/back/index.php');
-            } else {
-                echo 'Page protégée';
-            }
+                if ($_SESSION['role'] === 'admin') {
+                    require('view/back/'. $_GET['page'] .'.php');
+                } else {
+                    header('Location: index.php');
+                }
                 break;
         }
     }
     else {
-        $_GET['page'] = 'home';
+        $_GET['page'] = "home";
         if (posts('articles')) {
             $post = lastPost('articles');
         }
-        require_once('view/front/page/home.php');
+        require('view/front/page/'. $_GET['page'] .'.php');
     }
 } catch (Exception $e) {
     die('Erreur : '.$e->getMessage());

@@ -25,10 +25,10 @@
         <header>
             <?= $nav ?>
         </header>
-        <div id="content" class="container<?php if($_GET['page'] === "admin") { echo "-fluid"; }; ?>">
+        <div id="content" class="container<?php if($_SESSION['role'] === 'admin' && $_GET['page'] === "admin") { echo "-fluid"; }; ?>">
             <?= $content ?>
         </div>
-        <?php if($_GET['page'] != "admin") { echo "<footer class='bg-dark text-white fixed-bottom'></footer>"; }; ?>
+        <?php if($_SESSION['role'] != 'admin' || $_GET['page'] != "admin") { echo "<footer class='bg-dark text-white fixed-bottom'></footer>"; }; ?>
         <script src='public/js/init.js'></script>
     </body>
 </html>

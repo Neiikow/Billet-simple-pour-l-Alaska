@@ -22,6 +22,18 @@
             </p>
         </div>
     </div>
+    <?php
+        if ($_SESSION['role'] === 'admin') {
+            echo
+            '<div class="text-center">
+                <a href="index.php?page='. $_GET['page'] .'&action=edit&content=intro">
+                    <button type="button" name="edit-intro" class="btn btn-link text-info btn-sm">
+                        Editer
+                    </button>
+                </a>
+            </div>';
+        }
+    ?>
 </section>
 
 

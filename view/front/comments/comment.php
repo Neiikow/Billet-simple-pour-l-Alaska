@@ -24,11 +24,22 @@
                             Signaler
                         </button>
                     </a>
-                    <!-- <a href="index.php?page=<?= $_GET['page']; ?>&action=delete&id=<?= $commentId ?>">
-                        <button type='button' name='delete' class='btn btn-link text-info btn-sm'>
-                            Supprimer
-                        </button>
-                    </a> -->
+                    <?php
+                        if ($_SESSION['role'] === 'admin') {
+                            echo
+                            '<a href="index.php?page='. $_GET['page'] .'&action=edit&id='. $commentId .'">
+                                <button type="button" name="edit" class="btn btn-link text-info btn-sm">
+                                    Editer
+                                </button>
+                            </a>
+                            <a href="index.php?page='. $_GET['page'] .'&action=delete&id='. $commentId .'">
+                                <button type="button" name="delete" class="btn btn-link text-info btn-sm">
+                                    Supprimer
+                                </button>
+                            </a>';
+                        }
+                    ?>
+                    <!--  -->
                 </td>
             </tr>
         <?php

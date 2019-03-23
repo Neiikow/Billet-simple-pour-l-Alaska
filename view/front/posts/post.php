@@ -16,6 +16,16 @@ $postDate = htmlspecialchars($post->datePost());
                     Commentaire(s)
                 </button>
             </a>
+            <?php
+                if ($_SESSION['role'] === 'admin') {
+                    echo
+                    '<a href="index.php?page='. $_GET['page'] .'&action=edit&id='. $postId .'">
+                        <button type="button" name="edit" class="btn btn-link text-info btn-sm">
+                            Editer
+                        </button>
+                    </a>';
+                }
+            ?>
         </div>
         <p class='btn-sm date font-italic'><strong><?= $postAuthor ?></strong> le <?= $postDate ?></p>
     </div>

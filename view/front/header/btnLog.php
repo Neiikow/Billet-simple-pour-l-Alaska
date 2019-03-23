@@ -1,7 +1,9 @@
 <?php
 if ($_SESSION['role'] === 'admin') {
 ?>
-    <button class="btn btn-outline-light" type="button" data-toggle="modal" data-target="#modalLogin">Deconnexion</button>
+    <a href="index.php?page=home&action=logout">
+        <button class="btn btn-outline-light" type="button">Deconnexion</button>
+    </a>
 <?php
 }
 else {

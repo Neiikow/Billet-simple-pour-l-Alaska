@@ -1,5 +1,5 @@
 <?php
-class DbManager
+trait DbManager
 {
     public function dbConnect()
     {

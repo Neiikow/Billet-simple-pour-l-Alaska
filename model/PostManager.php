@@ -1,8 +1,10 @@
 <?php
 require_once('model/DbManager.php');
 
-class PostManager extends DbManager
+class PostManager
 {
+    use DbManager;
+    
     public function getPosts()
     {
         $posts = [];

@@ -7,7 +7,7 @@ class ArticleManager extends PostManager
     public function __construct($table)
     {
         $this->post = "Article";
-        $this->db = parent::dbConnect();
+        $this->db = $this->dbConnect();
         $this->table = $table;
     }
     

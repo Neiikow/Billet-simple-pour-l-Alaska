@@ -1,14 +1,67 @@
 <?php
-require_once('controller/dbTable.php');
+require_once('controller/manager.php');
+require_once('controller/back/action.php');
 
-function posts($table){ return getTable($table)->getPosts(); }
-function post($table, $idPost) { return getTable($table)->getPost($idPost); }
-function firstPost($table){ return getTable($table)->getFirst(); }
-function lastPost($table){ return getTable($table)->getLast(); }
-function nextPost($table, $id){ return getTable($table)->getNext($id); }
-function prevPost($table, $id){ return getTable($table)->getPrev($id); }
-function rowPost($table, $id){ return getTable($table)->getRow($id); }
-function countPosts($table){ return getTable($table)->getCount(); }
-function postComments($table, $idPost){ return getTable($table)->postComments($idPost); }
+class ControllerFront
+{
+    use ControllerBack;
+    private $_url;
+    private $_data = [];
 
-function login($table, $name, $password){ return getTable($table)->getLogMember($name, $password); }
+    public function data($key) { return $this->_data[$key]; }
+
+    public function loadPage() {
+        $data = $this->_data;
+        require($this->_url);
+    }
+    public function setUrl($page) {
+        $this->_url = ('view/front/page/'. $page .'.php');
+    }
+    public function posts($type){
+        $this->_data[$type] = getManager($type)->getPosts();
+    }
+    public function post($type, $id) {
+        $this->_data[$type] = getManager($type.'s')->getPost($id);
+    }
+    public function lastPost($type){
+        $this->_data['last'.ucfirst($type)] = getManager($type.'s')->getLast();
+    }
+    public function firstPost($type){
+        $this->_data['first'.ucfirst($type)] = getManager($type.'s')->getFirst();
+    }
+    public function nextPost($type, $id){
+        if (getManager($type.'s')->getNext($this->_data['article']->id())) {
+            $this->_data['next'.ucfirst($type)] = getManager($type.'s')->getNext($this->_data['article']->id());
+        } else {
+            $this->_data['next'.ucfirst($type)] = getManager($type.'s')->getLast();
+        }
+    }
+    public function prevPost($type, $id){
+        if (getManager($type.'s')->getPrev($this->_data['article']->id())) {
+            $this->_data['prev'.ucfirst($type)] = getManager($type.'s')->getPrev($this->_data['article']->id());
+        } else {
+            $this->_data['prev'.ucfirst($type)] = getManager($type.'s')->getFirst();
+        }
+    }
+    public function rowPost($type, $id){
+        $this->_data['current'.ucfirst($type)] = getManager($type.'s')->getRow($id);
+    }
+    public function countPosts($type){
+        $this->_data['total'.ucfirst($type)] = getManager($type)->getCount();
+    }
+    public function childsPost($childs, $parrent, $idParrent){
+        $this->_data[$childs] = getManager($childs)->postComments($idParrent);
+    }
+}
+/*
+function login($page, $name, $password){
+    $user =  getManager('members')->getLogMember($name, $password);
+    if ($user) {
+        $_SESSION['role'] = $user->role();
+    }
+    if ($page === "admin") {
+        require(backUrl($page));
+    } else {
+        require(frontUrl($page));
+    }
+}*/

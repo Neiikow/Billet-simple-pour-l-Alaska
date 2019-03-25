@@ -8,11 +8,11 @@
             <div class="navbar-nav">
                 <?php
                     if ($_SESSION['role'] === 'admin') {
-                        echo '<a class="nav-item nav-link" href="index.php?page=admin">Administration</a>';
+                        echo '<a class="nav-item nav-link" href="index.php?page=admin&action=articles">Administration</a>';
                     }
                 ?>
-                <a class="nav-item nav-link active" href="index.php?page=home&action=last">Accueil <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="index.php?page=posts&action=first">Articles</a>
+                <a class="nav-item nav-link" href="index.php?page=home">Accueil <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="index.php?page=articles">Articles</a>
                 <a class="nav-item nav-link" href="index.php?page=contact">Contact</a>
             </div>
             <?php require('view/front/header/btnLog.php'); ?>

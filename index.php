@@ -1,16 +1,29 @@
 <?php
 session_start();
+
 require_once('controller/front/action.php');
-require_once('controller/back/action.php');
 //echo "<br><br><br><br><br>";
 try {
+    $ctrl = new ControllerFront;
+    if (!isset($_SESSION['role'])) {
+        $_SESSION['role'] = 'visitor';
+    }
+    if (isset($_GET['page'])) {
+        $page = $_GET['page'];
+    }
+    if (isset($_GET['id'])) {
+        $id = (int)$_GET['id'];
+    }
+    if (isset($_GET['idCom'])) {
+        $idCom = (int)$_GET['idCom'];
+    }
     if (isset($_POST['new-post'])) {
         $article = new Article([
             'author' => $_POST['author'],
             'text' => $_POST['text'],
             'title' => $_POST['title']
         ]);
-        addPost('articles', $article);
+        addPost($article);
     }
     elseif (isset($_POST['new-com'])) {
         $comment = new Comment([
@@ -18,7 +31,7 @@ try {
             'text' => $_POST['text'],
             'postId' => $_GET['post']
         ]);
-        addPost('comments', $comment);
+        addPost($comment);
     }
     elseif (isset($_POST['edit-post'])) {
         $article = new Article([
@@ -26,7 +39,7 @@ try {
             'text' => $_POST['text'],
             'title' => $_POST['title']
         ]);
-        editPost('articles', $article);
+        editPost($article);
     }
     elseif (isset($_POST['edit-com'])) {
         $comment = new Comment([
@@ -34,7 +47,7 @@ try {
             'text' => $_POST['text'],
             'postId' => $_GET['post']
         ]);
-        editPost('comments', $comment);
+        editPost($comment);
     }
     elseif (isset($_POST['edit-member'])) {
         $member = new Member([
@@ -42,70 +55,39 @@ try {
             'password' => $_POST['password'],
             'role' => $_POST['role']
         ]);
-        editMember('members', $member);
+        editMember($member);
     }
     elseif (isset($_POST['new-email'])) {
         echo "Send Email";
     }
     elseif (isset($_POST['sign-in'])) {
-        $user = login('members', $_POST['name'], $_POST['password']);
-        if ($user) {
-            $_SESSION['role'] = $user->role();
-        }
+        login($page, $_POST['name'], $_POST['password']);
     }
     if (isset($_GET['action'])) {
-        if (isset($_GET['id'])) {
-            $id = (int)$_GET['id'];
-        }
         switch($_GET['action'])
         {
-            case "posts":
-                $posts = posts('articles');
+            case "articles":
+                $ctrl->posts('articles');
                 break;
             case "comments":
-                $comments = posts('comments');
-                break;
-            case "first":
-                if (posts('articles')) {
-                    $post = firstPost('articles');
-                }
-                break;
-            case "last":
-                if (posts('articles')) {
-                    $post = lastPost('articles');
-                }
-                break;
-            case "next":
-                if (nextPost('articles', $id)) {
-                    $post = nextPost('articles', $id);
-                }
-                else {
-                    $post = post('articles', $id);
-                }
-                break;
-            case "prev":
-                if (prevPost('articles', $id)) {
-                    $post = prevPost('articles', $id);
-                }
-                else {
-                    $post = post('articles', $id);
-                }
+                $ctrl->posts('comments');
                 break;
             case "report":
-                reportPost('comments', $id);
+                $ctrl->reportPost('comments', $idCom);
+                $ctrl->childsPost('comments', 'article', $id);
                 break;
             case "show":
-                $post = post('articles', $id);
-                $comments = postComments('comments', $id);
+                $ctrl->childsPost('comments', 'article', $id);
                 break;
             case "edit":
-                
+                ////////////
                 break;
             case "delete":
-                deletePost('comments', $id);
+                $ctrl->deletePost($id);
                 break;
             case "logout":
                 $_SESSION['role'] = 'visitor';
+                header('Location: index.php');
                 break;
         }
     }
@@ -113,29 +95,28 @@ try {
         switch($_GET['page'])
         {
             case "home":
-                if (posts('articles')) {
-                    if (!isset($post)) {
-                        $post = lastPost('articles');	
-                    }
-                }
-                require('view/front/page/'. $_GET['page'] .'.php');
+                $ctrl->lastPost('article');
+                $ctrl->setUrl('home');
                 break;
-            case "posts":
-                if (posts('articles')) {
-                    if (!isset($post)) {
-                        $post = firstPost('articles');
-                    }
-                    $currentPost = rowPost('articles', $post->id());
-                    $totalPost = countPosts('articles');
+            case "articles":
+                $ctrl->firstPost('article');
+                $ctrl->lastPost('article');
+                if (!isset($id)) {
+                    $id = $ctrl->data('firstArticle')->id();
                 }
-                require('view/front/page/'. $_GET['page'] .'.php');
+                $ctrl->post('article', $id);
+                $ctrl->nextPost('article', $id);
+                $ctrl->prevPost('article', $id);
+                $ctrl->rowPost('article', $id);
+                $ctrl->countPosts('articles');
+                $ctrl->setUrl('articles');
                 break;
             case "contact":	
-                require('view/front/page/'. $_GET['page'] .'.php');
+                $ctrl->setUrl('contact');
                 break;
             case "admin":
                 if ($_SESSION['role'] === 'admin') {
-                    require('view/back/'. $_GET['page'] .'.php');
+                    require_once('view/back/'. $_GET['page'] .'.php');
                 } else {
                     header('Location: index.php');
                 }
@@ -144,11 +125,10 @@ try {
     }
     else {
         $_GET['page'] = "home";
-        if (posts('articles')) {
-            $post = lastPost('articles');
-        }
-        require('view/front/page/'. $_GET['page'] .'.php');
+        $ctrl->lastPost('article');
+        $ctrl->setUrl('home');
     }
+    $ctrl->loadPage();
 } catch (Exception $e) {
     die('Erreur : '.$e->getMessage());
 }

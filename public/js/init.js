@@ -27,7 +27,7 @@ if ((d+f)>w) {
 
 //Gestion de la position du dashboard navigation
 const hDash = w-56;
-$('.dash-nav').css({
+$('.dashboard').css({
     minHeight: hDash
 })
 

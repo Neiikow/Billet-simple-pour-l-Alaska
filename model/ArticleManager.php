@@ -4,9 +4,10 @@ require_once('model/Article.php');
 
 class ArticleManager extends PostManager
 {
+    protected $_post = "Article";
+
     public function __construct($table)
     {
-        $this->post = "Article";
         $this->db = $this->dbConnect();
         $this->table = $table;
     }

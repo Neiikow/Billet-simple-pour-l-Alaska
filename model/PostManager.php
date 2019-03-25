@@ -4,14 +4,14 @@ require_once('model/DbManager.php');
 class PostManager
 {
     use DbManager;
-    
+
     public function getPosts()
     {
         $posts = [];
-        $req = $this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY id');
+        $req = $this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY id DESC');
         while ($data = $req->fetch(PDO::FETCH_ASSOC))
         {
-            $posts[] = new $this->post($data);
+            $posts[] = new $this->_post($data);
         }
         
         return $posts;
@@ -22,7 +22,7 @@ class PostManager
         $req->execute(array($id));
         $data = $req->fetch(PDO::FETCH_ASSOC);
 
-        return new $this->post($data);
+        return new $this->_post($data);
     }
     public function getCount()
     {
@@ -45,7 +45,7 @@ class PostManager
         $req->execute(array($id));
         $data = $req->fetch(PDO::FETCH_ASSOC);
         if ($data) {
-            return new $this->post($data);
+            return new $this->_post($data);
         }
     }
     public function getPrev($id)
@@ -54,7 +54,7 @@ class PostManager
         $req->execute(array($id));
         $data = $req->fetch(PDO::FETCH_ASSOC);
         if ($data) {
-            return new $this->post($data);
+            return new $this->_post($data);
         }
     }
     public function getLast()
@@ -62,24 +62,24 @@ class PostManager
         $req = $this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY id DESC LIMIT 1');
         $data = $req->fetch(PDO::FETCH_ASSOC);
         
-        return new $this->post($data);
+        return new $this->_post($data);
     }
     public function getFirst()
     {
         $req = $this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY id LIMIT 1');
         $data = $req->fetch(PDO::FETCH_ASSOC);
         
-        return new $this->post($data);
+        return new $this->_post($data);
     }
     public function deletePost(Post $post)
     {
         $this->db->query('DELETE FROM  ' . $this->table . '  WHERE id =' . $post->id());
     }
-    public function reportPost(Post $post)
+    public function reportPost($id)
     {
         $req = $this->db->prepare('UPDATE  ' . $this->table . '  SET reported = :reported WHERE id = :id');
         $req->bindValue(':reported', 1, PDO::PARAM_INT);
-        $req->bindValue(':id', $post->id(), PDO::PARAM_INT);
+        $req->bindValue(':id', $id, PDO::PARAM_INT);
         $req->execute();
     }
 }

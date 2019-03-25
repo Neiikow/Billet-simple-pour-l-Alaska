@@ -1,10 +1,6 @@
-<div class='pt-5 bg-dark dash-nav'>
+<div class='col-md-1 pt-5 bg-dark dashboard'>
     <nav class="nav flex-column">
-        <a class="text-center nav-link text-light bg-dark" href="index.php?page=admin">
-                Dashboard      
-        </a>
-        <br>
-        <a class="nav-link active text-light bg-dark" href="index.php?page=admin&action=posts">
+        <a class="nav-link active text-light bg-dark" href="index.php?page=admin&action=articles">
                 Articles      
         </a>
         <a class="nav-link text-light bg-dark" href="index.php?page=admin&action=comments">

@@ -45,3 +45,6 @@ button[name=report] {
 hr {
     margin-bottom: 10px;
 }
+.dashboard {
+    padding: 0;
+}

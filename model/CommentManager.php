@@ -4,9 +4,10 @@ require_once('model/Comment.php');
 
 class CommentManager extends PostManager
 {
+    protected $_post = "Comment";
+
     public function __construct($table)
     {
-        $this->post = "Comment";
         $this->db = $this->dbConnect();
         $this->table = $table;
     }
@@ -14,11 +15,11 @@ class CommentManager extends PostManager
     public function postComments($id)
     {
         $comments = [];
-        $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE postId = ? ORDER BY id');
+        $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE postId = ? ORDER BY id DESC');
         $req->execute(array($id));
         while ($data = $req->fetch(PDO::FETCH_ASSOC))
         {
-            $comments[] = new $this->post($data);
+            $comments[] = new $this->_post($data);
         }
         
         return $comments;

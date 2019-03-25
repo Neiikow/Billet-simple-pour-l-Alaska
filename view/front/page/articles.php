@@ -7,11 +7,12 @@
 <?php ob_start(); ?>
     <h2 class='text-uppercase'>Tous les articles</h2>
     <?php
-    if (isset($post)) {
-        $postId = htmlspecialchars($post->id());
-        require('view/front/posts/nav.php');
-        require('view/front/posts/post.php');
-        require('view/front/posts/nav.php');
+    if (isset($data['article']))
+    {
+        $articleId = htmlspecialchars($data['article']->id());
+        require('view/front/articles/nav.php');
+        require('view/front/articles/article.php');
+        require('view/front/articles/nav.php');
     }
     ?>
 <?php $content = ob_get_clean(); ?>

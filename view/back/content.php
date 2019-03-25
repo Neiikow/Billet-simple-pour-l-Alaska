@@ -3,10 +3,14 @@
     if (isset($posts)) {
         foreach ($posts as $post) {
             $postId = htmlspecialchars($post->id());
-            require('view/front/posts/post.php');
+            require('view/front/articles/article.php');
         }
     }
-    if (isset($comments)) {
+    elseif (isset($post)) {
+        $postId = htmlspecialchars($post->id());
+        require('view/front/articles/article.php');
+    }
+    elseif (isset($comments)) {
     ?>
         <div class='comments container table-responsive'>
             <?php

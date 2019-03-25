@@ -1,7 +1,7 @@
 <table class='table table-striped table-bordered'>
     <tbody>
         <?php
-        foreach ($comments as $comment)
+        foreach ($data['comments'] as $comment)
         {
             $commentId = htmlspecialchars($comment->id());
             $commentText = htmlspecialchars($comment->text());
@@ -19,7 +19,7 @@
                     <?= $commentText ?>
                     </p>
                     <hr>
-                    <a href="index.php?page=<?= $_GET['page']; ?>&action=report&id=<?= $commentId ?>">
+                    <a href="index.php?page=<?= $_GET['page']; ?>&action=report&id=<?= $articleId ?>&idCom=<?= $commentId ?>">
                         <button type='button' name='report' class='btn btn-link text-info btn-sm'>
                             Signaler
                         </button>
@@ -27,19 +27,18 @@
                     <?php
                         if ($_SESSION['role'] === 'admin') {
                             echo
-                            '<a href="index.php?page='. $_GET['page'] .'&action=edit&id='. $commentId .'">
+                            '<a href="index.php?page='. $_GET['page'] .'&action=edit&id='. $articleId .'&idCom='. $commentId .'">
                                 <button type="button" name="edit" class="btn btn-link text-info btn-sm">
                                     Editer
                                 </button>
                             </a>
-                            <a href="index.php?page='. $_GET['page'] .'&action=delete&id='. $commentId .'">
+                            <a href="index.php?page='. $_GET['page'] .'&action=delete&id='. $articleId .'&idCom='. $commentId .'">
                                 <button type="button" name="delete" class="btn btn-link text-info btn-sm">
                                     Supprimer
                                 </button>
                             </a>';
                         }
                     ?>
-                    <!--  -->
                 </td>
             </tr>
         <?php

@@ -1,7 +1,18 @@
 <?php
-require_once('controller/dbTable.php');
+require_once('controller/manager.php');
 
-function deletePost($table, $id){ getTable($table)->deletePost(getTable($table)->getPost($id)); }
-function reportPost($table, $id){ getTable($table)->reportPost(getTable($table)->getPost($id)); }
-function addPost($table, $data){ getTable($table)->addPost($data); }
-function editPost($table, $id){ getTable($table)->editPost(getTable($table)->getPost($id)); }
+trait ControllerBack
+{
+    public function reportPost($type, $id){
+        getManager($type)->reportPost($id);
+    }
+    /*public function deletePost($page, $id){
+        getManager('comments')->deletePost(getManager('comments')->getPost($id));
+    }
+    public function addPost($data){
+        getManager('comments')->addPost($data);
+    }
+    public function editPost($id){
+        getManager('comments')->editPost(getManager('comments')->getPost($id));
+    }*/
+}

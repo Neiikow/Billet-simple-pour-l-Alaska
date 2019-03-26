@@ -8,9 +8,6 @@ try {
     if (!isset($_SESSION['role'])) {
         $_SESSION['role'] = 'visitor';
     }
-    if (isset($_GET['page'])) {
-        $page = $_GET['page'];
-    }
     if (isset($_GET['id'])) {
         $id = (int)$_GET['id'];
     }
@@ -70,6 +67,12 @@ try {
                 $ctrl->reportPost('comments', $idCom);
                 $ctrl->childsPost('comments', 'article', $id);
                 break;
+            case "valide":
+                $ctrl->validePost('comments', $idCom);
+                if (isset($id)) {
+                    $ctrl->childsPost('comments', 'article', $id);
+                }
+                break;
             case "seeComments":
                 $ctrl->childsPost('comments', 'article', $id);
                 break;
@@ -96,6 +99,9 @@ try {
                 break;
             case "comments":
                 $ctrl->posts('comments');
+                break;
+            case "reported":
+                $ctrl->reportedPosts('comments');
                 break;
         }
     }

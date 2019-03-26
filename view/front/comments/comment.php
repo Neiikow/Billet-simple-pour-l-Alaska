@@ -14,7 +14,7 @@
                     <p><strong><?= $commentAuthor ?></strong></p>
                     <p class='date'> le <?= $commentDate ?></p>
                 </td>
-                <td class='col'>
+                <td class='col <?php if ($reported) { echo 'reported'; } ?>'>
                     <p>
                     <?= $commentText ?>
                     </p>
@@ -30,12 +30,7 @@
                     }
                     else {
                         echo
-                        '<a href="index.php?page='. $_GET['page'] .'&action=edit&id='. $articleId .'&idCom='. $commentId .'">
-                            <button type="button" name="edit" class="btn btn-link text-info btn-sm">
-                                Editer
-                            </button>
-                        </a>
-                        <a href="index.php?page='. $_GET['page'] .'&action=deleteComment&id='. $articleId .'&idCom='. $commentId .'">
+                        '<a href="index.php?page='. $_GET['page'] .'&action=deleteComment&id='. $articleId .'&idCom='. $commentId .'">
                             <button type="button" name="delete" class="btn btn-link text-info btn-sm">
                                 Supprimer
                             </button>

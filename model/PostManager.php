@@ -82,4 +82,22 @@ class PostManager
         $req->bindValue(':id', $id, PDO::PARAM_INT);
         $req->execute();
     }
+    public function validePost($id)
+    {
+        $req = $this->db->prepare('UPDATE  ' . $this->table . '  SET reported = :reported WHERE id = :id');
+        $req->bindValue(':reported', 0, PDO::PARAM_INT);
+        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->execute();
+    }
+    public function getReportedPosts()
+    {
+        $posts = [];
+        $req = $this->db->query('SELECT * FROM ' . $this->table . ' WHERE reported = 1 ORDER BY id DESC');
+        while ($data = $req->fetch(PDO::FETCH_ASSOC))
+        {
+            $posts[] = new $this->_post($data);
+        }
+        
+        return $posts;
+    }
 }

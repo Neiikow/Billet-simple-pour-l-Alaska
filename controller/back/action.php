@@ -6,13 +6,13 @@ trait ControllerBack
     public function reportPost($type, $id){
         getManager($type)->reportPost($id);
     }
-    /*public function deletePost($page, $id){
-        getManager('comments')->deletePost(getManager('comments')->getPost($id));
+    public function deletePost($type, $id){
+        getManager($type)->deletePost(getManager($type)->getPost($id));
     }
-    public function addPost($data){
-        getManager('comments')->addPost($data);
+    public function addPost($type, $data){
+        getManager($type)->addPost($data);
     }
-    public function editPost($id){
+    /*public function editPost($id){
         getManager('comments')->editPost(getManager('comments')->getPost($id));
     }*/
 }

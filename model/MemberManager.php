@@ -12,7 +12,7 @@ class MemberManager
         $this->table = $table;
     }
     
-    public function getLogMember($name, $password)
+    public function getMember($name, $password)
     {
         $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name = ? AND password = ? ORDER BY id');
         $req->execute(array($name, $password));

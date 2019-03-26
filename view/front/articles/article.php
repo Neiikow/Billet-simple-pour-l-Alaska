@@ -11,7 +11,7 @@ $articleDate = htmlspecialchars($data['article']->datePost());
     <hr>
     <div class='post-option d-flex justify-content-between align-items-center flex-wrap'>
         <div class='d-flex flex-nowrap'>
-            <a href="javascript:window.location.href='index.php?page=<?= $_GET['page']; ?>&action=show&id=<?= $articleId ?>'+'&scroll='+document.documentElement.scrollTop">
+            <a href="javascript:window.location.href='index.php?page=<?= $_GET['page']; ?>&action=seeComments&id=<?= $articleId ?>'+'&scroll='+document.documentElement.scrollTop">
                 <button type='button' name='report' class='comment-btn btn btn-link text-info btn-sm'>
                     Commentaire(s)
                 </button>

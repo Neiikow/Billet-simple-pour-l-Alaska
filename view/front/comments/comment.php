@@ -19,25 +19,28 @@
                     <?= $commentText ?>
                     </p>
                     <hr>
-                    <a href="index.php?page=<?= $_GET['page']; ?>&action=report&id=<?= $articleId ?>&idCom=<?= $commentId ?>">
-                        <button type='button' name='report' class='btn btn-link text-info btn-sm'>
-                            Signaler
-                        </button>
-                    </a>
                     <?php
-                        if ($_SESSION['role'] === 'admin') {
-                            echo
-                            '<a href="index.php?page='. $_GET['page'] .'&action=edit&id='. $articleId .'&idCom='. $commentId .'">
-                                <button type="button" name="edit" class="btn btn-link text-info btn-sm">
-                                    Editer
-                                </button>
-                            </a>
-                            <a href="index.php?page='. $_GET['page'] .'&action=delete&id='. $articleId .'&idCom='. $commentId .'">
-                                <button type="button" name="delete" class="btn btn-link text-info btn-sm">
-                                    Supprimer
-                                </button>
-                            </a>';
-                        }
+                    if ($_SESSION['role'] != 'admin') {
+                        echo
+                        '<a href="index.php?page='. $_GET['page'] .'&action=report&id='. $articleId .'&idCom='. $commentId .'">
+                            <button type="button" name="report" class="btn btn-link text-info btn-sm">
+                                Signaler
+                            </button>
+                        </a>';
+                    }
+                    else {
+                        echo
+                        '<a href="index.php?page='. $_GET['page'] .'&action=edit&id='. $articleId .'&idCom='. $commentId .'">
+                            <button type="button" name="edit" class="btn btn-link text-info btn-sm">
+                                Editer
+                            </button>
+                        </a>
+                        <a href="index.php?page='. $_GET['page'] .'&action=deleteComment&id='. $articleId .'&idCom='. $commentId .'">
+                            <button type="button" name="delete" class="btn btn-link text-info btn-sm">
+                                Supprimer
+                            </button>
+                        </a>';
+                    }
                     ?>
                 </td>
             </tr>

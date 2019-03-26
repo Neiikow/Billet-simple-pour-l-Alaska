@@ -15,7 +15,11 @@ class ControllerFront
         require($this->_url);
     }
     public function setUrl($page) {
-        $this->_url = ('view/front/page/'. $page .'.php');
+        if ($page === 'admin') {
+            $this->_url = ('view/back/page/'. $page .'.php');
+        } else {
+            $this->_url = ('view/front/page/'. $page .'.php');
+        }
     }
     public function posts($type){
         $this->_data[$type] = getManager($type)->getPosts();
@@ -52,16 +56,10 @@ class ControllerFront
     public function childsPost($childs, $parrent, $idParrent){
         $this->_data[$childs] = getManager($childs)->postComments($idParrent);
     }
+    public function login($name, $password){
+        $user =  getManager('members')->getMember($name, $password);
+        if ($user) {
+            $_SESSION['role'] = $user->role();
+        }
+    }
 }
-/*
-function login($page, $name, $password){
-    $user =  getManager('members')->getLogMember($name, $password);
-    if ($user) {
-        $_SESSION['role'] = $user->role();
-    }
-    if ($page === "admin") {
-        require(backUrl($page));
-    } else {
-        require(frontUrl($page));
-    }
-}*/

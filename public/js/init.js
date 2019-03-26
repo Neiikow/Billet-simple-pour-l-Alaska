@@ -1,15 +1,3 @@
-$(document).ready(function() {
-    const btns = $(".comment-btn");
-    // btns.each(function(i, btn) {
-    //     const post = $(btn).parent().parent()
-    //     $(this).on('click',() => {
-    //         $(post[0].nextElementSibling).animate({
-    //             height: 'toggle'
-    //         });
-    //     })
-    // });
-});
-
 //Gestion de la position du scroll
 try {
     const x = location.href.split("scroll=")[1]
@@ -26,8 +14,7 @@ if ((d+f)>w) {
 }
 
 //Gestion de la position du dashboard navigation
-const hDash = w-56;
-$('.dashboard').css({
-    minHeight: hDash
+$('#dashboard').css({
+    minHeight: w
 })
 

@@ -17,37 +17,37 @@ try {
     if (isset($_GET['idCom'])) {
         $idCom = (int)$_GET['idCom'];
     }
-    if (isset($_POST['new-post'])) {
+    if (isset($_POST['new-article'])) {
         $article = new Article([
             'author' => $_POST['author'],
             'text' => $_POST['text'],
             'title' => $_POST['title']
         ]);
-        addPost($article);
+        $ctrl->addPost($article);
     }
-    elseif (isset($_POST['new-com'])) {
+    elseif (isset($_POST['new-comment'])) {
         $comment = new Comment([
             'author' => $_POST['author'],
             'text' => $_POST['text'],
-            'postId' => $_GET['post']
+            'postId' => $_GET['id']
         ]);
-        addPost($comment);
+        $ctrl->addPost('comments', $comment);
     }
-    elseif (isset($_POST['edit-post'])) {
+    elseif (isset($_POST['edit-article'])) {
         $article = new Article([
             'author' => $_POST['author'],
             'text' => $_POST['text'],
             'title' => $_POST['title']
         ]);
-        editPost($article);
+        $ctrl->editPost($article);
     }
-    elseif (isset($_POST['edit-com'])) {
+    elseif (isset($_POST['edit-comment'])) {
         $comment = new Comment([
             'author' => $_POST['author'],
             'text' => $_POST['text'],
             'postId' => $_GET['post']
         ]);
-        editPost($comment);
+        $ctrl->editPost($comment);
     }
     elseif (isset($_POST['edit-member'])) {
         $member = new Member([
@@ -55,39 +55,47 @@ try {
             'password' => $_POST['password'],
             'role' => $_POST['role']
         ]);
-        editMember($member);
+        $ctrl->editMember($member);
     }
     elseif (isset($_POST['new-email'])) {
         echo "Send Email";
     }
     elseif (isset($_POST['sign-in'])) {
-        login($page, $_POST['name'], $_POST['password']);
+        $ctrl->login($_POST['name'], $_POST['password']);
     }
     if (isset($_GET['action'])) {
         switch($_GET['action'])
+        {
+            case "report":
+                $ctrl->reportPost('comments', $idCom);
+                $ctrl->childsPost('comments', 'article', $id);
+                break;
+            case "seeComments":
+                $ctrl->childsPost('comments', 'article', $id);
+                break;
+            case "edit":
+                ////////////
+                break;
+            case "deleteComment":
+                $ctrl->deletePost('comments', $idCom);
+                break;
+            case "deleteArticle":
+                $ctrl->deletePost('articles', $id);
+                break;
+            case "logout":
+                $_SESSION['role'] = 'visitor';
+                header('Location: index.php');
+                break;
+        }
+    }
+    if (isset($_GET['section'])) {
+        switch($_GET['section'])
         {
             case "articles":
                 $ctrl->posts('articles');
                 break;
             case "comments":
                 $ctrl->posts('comments');
-                break;
-            case "report":
-                $ctrl->reportPost('comments', $idCom);
-                $ctrl->childsPost('comments', 'article', $id);
-                break;
-            case "show":
-                $ctrl->childsPost('comments', 'article', $id);
-                break;
-            case "edit":
-                ////////////
-                break;
-            case "delete":
-                $ctrl->deletePost($id);
-                break;
-            case "logout":
-                $_SESSION['role'] = 'visitor';
-                header('Location: index.php');
                 break;
         }
     }
@@ -116,7 +124,7 @@ try {
                 break;
             case "admin":
                 if ($_SESSION['role'] === 'admin') {
-                    require_once('view/back/'. $_GET['page'] .'.php');
+                    $ctrl->setUrl('admin');
                 } else {
                     header('Location: index.php');
                 }

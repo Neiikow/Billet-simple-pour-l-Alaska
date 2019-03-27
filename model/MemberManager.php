@@ -21,12 +21,26 @@ class MemberManager
             return new Member($data);
         }
     }
+    public function getRole($role)
+    {
+        $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE role = ? ORDER BY id');
+        $req->execute(array($role));
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+        if ($data) {
+            return new Member($data);
+        }
+    }
     public function editMember(Member $member)
     {
-        $req = $this->db->prepare('UPDATE  ' . $this->table . '  SET name = :name, password = :password, role = :role WHERE id = :id');
+        
+        $req = $this->db->prepare('UPDATE  ' . $this->table . '  SET name = :name, password = :password, email = :email, phone = :phone, city = :city, street = :street, postal = :postal WHERE id = :id');
         $req->bindValue(':name', $member->name(), PDO::PARAM_STR);
         $req->bindValue(':password', $member->password(), PDO::PARAM_STR);
-        $req->bindValue(':role', $member->role(), PDO::PARAM_INT);
+        $req->bindValue(':email', $member->email(), PDO::PARAM_STR);
+        $req->bindValue(':phone', $member->phone(), PDO::PARAM_STR);
+        $req->bindValue(':city', $member->city(), PDO::PARAM_STR);
+        $req->bindValue(':street', $member->street(), PDO::PARAM_STR);
+        $req->bindValue(':postal', $member->postal(), PDO::PARAM_INT);
         $req->bindValue(':id', $member->id(), PDO::PARAM_INT);
         $req->execute();
     }

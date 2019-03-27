@@ -1,4 +1,4 @@
-<?php $title = "Administration"; ?>
+<?php $title = "Nouveau"; ?>
 
 <?php ob_start(); ?>
     <?php require('view/front/header/nav.php'); ?>
@@ -11,7 +11,7 @@
     </div>
     <div class='col'>
         <div class="container">
-            <?php require('view/back/container.php'); ?>  
+            <?php require('view/back/articles/form.php'); ?>
         </div>
     </div>
 </div>

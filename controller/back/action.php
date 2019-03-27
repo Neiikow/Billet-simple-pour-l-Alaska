@@ -18,6 +18,9 @@ trait ControllerBack
     public function addPost($type, $data){
         getManager($type)->addPost($data);
     }
+    public function editMember($member){
+        getManager('members')->editMember($member);
+    }
     /*public function editPost($id){
         getManager('comments')->editPost(getManager('comments')->getPost($id));
     }*/

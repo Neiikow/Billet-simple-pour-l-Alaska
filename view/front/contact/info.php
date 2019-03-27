@@ -2,17 +2,17 @@
     <address>
         <h5>Adresse</h5>
         <p>
-            Ville<br>
-            Rue<br>
-            Code postal
+            <?= $data['admin']->city() ?><br>
+            <?= $data['admin']->street() ?><br>
+            <?= $data['admin']->postal() ?><br>
         </p>
     </address>
     <h5>Téléphone</h5>
     <p>
-        01 02 03 04 05
+        <?= $data['admin']->phone() ?><br>
     </p>
     <h5>Email</h5>
     <p>
-        monemail@mail.com
+        <?= $data['admin']->email() ?><br>
     </p>
 </div>

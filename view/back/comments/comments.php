@@ -1,10 +1,10 @@
 <div class="table-responsive">
-    <a href="index.php?page=<?= $_GET['page']; ?>&section=comments">
+    <a href="index.php?section=<?= $_GET['section']; ?>&page=comments">
         <button type='button' name='see-comments' class='btn btn-outline-dark mb-2'>
             Tous les commentaires
         </button>
     </a>
-    <a href="index.php?page=<?= $_GET['page']; ?>&section=reported">
+    <a href="index.php?section=<?= $_GET['section']; ?>&page=reported">
         <button type='button' name='see-reports' class='btn btn-outline-dark mb-2'>
             Commentaires signalés
         </button>

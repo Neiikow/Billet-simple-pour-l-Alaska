@@ -16,11 +16,11 @@ try {
     }
     if (isset($_POST['new-article'])) {
         $article = new Article([
-            'author' => $_POST['author'],
+            'author' => $_SESSION['name'],
             'text' => $_POST['text'],
             'title' => $_POST['title']
         ]);
-        $ctrl->addPost($article);
+        $ctrl->addPost('articles', $article);
     }
     elseif (isset($_POST['new-comment'])) {
         $comment = new Comment([
@@ -32,25 +32,22 @@ try {
     }
     elseif (isset($_POST['edit-article'])) {
         $article = new Article([
-            'author' => $_POST['author'],
+            'author' => $_SESSION['name'],
             'text' => $_POST['text'],
             'title' => $_POST['title']
         ]);
         $ctrl->editPost($article);
     }
-    elseif (isset($_POST['edit-comment'])) {
-        $comment = new Comment([
-            'author' => $_POST['author'],
-            'text' => $_POST['text'],
-            'postId' => $_GET['post']
-        ]);
-        $ctrl->editPost($comment);
-    }
     elseif (isset($_POST['edit-member'])) {
         $member = new Member([
             'name' => $_POST['name'],
             'password' => $_POST['password'],
-            'role' => $_POST['role']
+            'email' => $_POST['email'],
+            'phone' => $_POST['phone'],
+            'city' => $_POST['city'],
+            'street' => $_POST['street'],
+            'postal' => $_POST['postal'],
+            'id' => $_GET['id']
         ]);
         $ctrl->editMember($member);
     }
@@ -76,6 +73,9 @@ try {
             case "seeComments":
                 $ctrl->childsPost('comments', 'article', $id);
                 break;
+            case "new-article":
+                ////////////
+                break;
             case "edit":
                 ////////////
                 break;
@@ -94,23 +94,44 @@ try {
     if (isset($_GET['section'])) {
         switch($_GET['section'])
         {
-            case "articles":
-                $ctrl->posts('articles');
-                break;
-            case "comments":
-                $ctrl->posts('comments');
-                break;
-            case "reported":
-                $ctrl->reportedPosts('comments');
+            case "admin":
+                if ($_SESSION['role'] === 'admin') {
+                    switch($_GET['page'])
+                    {
+                        case "articles":
+                            $ctrl->posts('articles');
+                            $ctrl->setUrl('back', 'articles');
+                            break;
+                        case "new":
+                            $ctrl->setUrl('back', 'new');
+                            break;
+                        case "comments":
+                            $ctrl->posts('comments');
+                            $ctrl->setUrl('back', 'comments');
+                            break;
+                        case "reported":
+                            $ctrl->reportedPosts('comments');
+                            $ctrl->setUrl('back', 'comments');
+                            break;
+                        case "profile":
+                            $ctrl->user($_SESSION['name'], $_SESSION['password']);
+                            $ctrl->setUrl('back', 'profile');
+                            break;
+                        case "settings":
+                            $ctrl->setUrl('back', 'settings');
+                            break;
+                    }
+                } else {
+                    header('Location: index.php');
+                }
                 break;
         }
-    }
-    if (isset($_GET['page'])) {
+    } elseif (isset($_GET['page'])) {
         switch($_GET['page'])
         {
             case "home":
                 $ctrl->lastPost('article');
-                $ctrl->setUrl('home');
+                $ctrl->setUrl('front', 'home');
                 break;
             case "articles":
                 $ctrl->firstPost('article');
@@ -123,24 +144,18 @@ try {
                 $ctrl->prevPost('article', $id);
                 $ctrl->rowPost('article', $id);
                 $ctrl->countPosts('articles');
-                $ctrl->setUrl('articles');
+                $ctrl->setUrl('front', 'articles');
                 break;
             case "contact":	
-                $ctrl->setUrl('contact');
-                break;
-            case "admin":
-                if ($_SESSION['role'] === 'admin') {
-                    $ctrl->setUrl('admin');
-                } else {
-                    header('Location: index.php');
-                }
+                $ctrl->role('admin');
+                $ctrl->setUrl('front', 'contact');
                 break;
         }
     }
     else {
         $_GET['page'] = "home";
         $ctrl->lastPost('article');
-        $ctrl->setUrl('home');
+        $ctrl->setUrl('front', 'home');
     }
     $ctrl->loadPage();
 } catch (Exception $e) {

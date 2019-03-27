@@ -8,7 +8,7 @@
             <div class="navbar-nav">
                 <?php
                     if ($_SESSION['role'] === 'admin') {
-                        echo '<a class="nav-item nav-link" href="index.php?page=admin&section=articles">Administration</a>';
+                        echo '<a class="nav-item nav-link" href="index.php?section=admin&page=articles">Administration</a>';
                     }
                 ?>
                 <a class="nav-item nav-link" href="index.php?page=home">Accueil <span class="sr-only">(current)</span></a>

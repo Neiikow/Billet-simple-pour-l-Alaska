@@ -1,7 +1,7 @@
 <?php
 $articleId = htmlspecialchars($data['article']->id());
 $articleTitle = htmlspecialchars($data['article']->title());
-$articleText = htmlspecialchars($data['article']->text());
+$articleText = $data['article']->text();
 $articleAuthor = htmlspecialchars($data['article']->author());
 $articleDate = htmlspecialchars($data['article']->datePost());
 ?>

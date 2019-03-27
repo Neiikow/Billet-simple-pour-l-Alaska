@@ -1,7 +1,9 @@
 <div class="table-responsive">
-    <button type='button' name='new' class='btn btn-outline-dark mb-2'>
-        Nouveau
-    </button>
+    <a href="index.php?section=<?= $_GET['section']; ?>&page=new&action=new-article">
+        <button type='button' class='btn btn-outline-dark mb-2'>
+            Nouveau
+        </button>
+    </a>
     <table class="table table-striped table-bordered">
         <thead class='text-center'>
             <tr>

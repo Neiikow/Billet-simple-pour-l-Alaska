@@ -1,4 +1,5 @@
 <?php
+namespace Jordan\Blog\Model;
 abstract class Post
 {
     private $_id;

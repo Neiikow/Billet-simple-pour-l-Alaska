@@ -38,7 +38,7 @@
     <div class="form-group row justify-content-md-center">
         <label for="postal" class="col-sm-3 col-form-label">Code postal</label>
         <div>
-            <input type="number" class="form-control" id="postal" name="postal" value="<?= $data['user']->postal() ?>">
+            <input type="text" class="form-control" id="postal" name="postal" value="<?= $data['user']->postal() ?>">
         </div>
     </div>
     <div class="form-group row justify-content-md-center">

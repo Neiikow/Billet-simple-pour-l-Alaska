@@ -1,4 +1,5 @@
 <?php
+namespace Jordan\Blog\Model;
 require_once('model/DbManager.php');
 
 class PostManager
@@ -9,53 +10,53 @@ class PostManager
     {
         $posts = [];
         $req = $this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY id DESC');
-        while ($data = $req->fetch(PDO::FETCH_ASSOC))
+        while ($data = $req->fetch(\PDO::FETCH_ASSOC))
         {
             $posts[] = new $this->_post($data);
         }
         if ($posts) {
             return $posts;
         } else {
-            throw new Exception("Aucun ". $this->table ." disponible");
+            throw new \Exception("Aucun ". $this->table ." disponible");
         }
     }
     public function getPost($id)
     {
         $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = ?');
         $req->execute(array($id));
-        $data = $req->fetch(PDO::FETCH_ASSOC);
+        $data = $req->fetch(\PDO::FETCH_ASSOC);
         if ($data) {
             return new $this->_post($data);
         } else {
-            throw new Exception("Aucun ". $this->table ." disponible");
+            throw new \Exception("Aucun ". $this->table ." disponible");
         }
     }
     public function getCount()
     {
         $req = $this->db->query('SELECT COUNT(*) FROM ' . $this->table);
-        $nb = $req->fetch(PDO::FETCH_ASSOC);
+        $nb = $req->fetch(\PDO::FETCH_ASSOC);
         if ($nb) {
             return (int) $nb['COUNT(*)'];
         } else {
-            throw new Exception("Aucun ". $this->table ." disponible");
+            throw new \Exception("Aucun ". $this->table ." disponible");
         }
     }
     public function getRow($id)
     {
         $req = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE id <= ? ORDER BY id');
         $req->execute(array($id));
-        $nb = $req->fetch(PDO::FETCH_ASSOC);
+        $nb = $req->fetch(\PDO::FETCH_ASSOC);
         if ($nb) {
             return (int) $nb['COUNT(*)'];
         } else {
-            throw new Exception("Aucun ". $this->table ." disponible");
+            throw new \Exception("Aucun ". $this->table ." disponible");
         }
     }
     public function getNext($id)
     {
         $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id > ? ORDER BY id ASC LIMIT 1');
         $req->execute(array($id));
-        $data = $req->fetch(PDO::FETCH_ASSOC);
+        $data = $req->fetch(\PDO::FETCH_ASSOC);
         if ($data) {
             return new $this->_post($data);
         }
@@ -64,7 +65,7 @@ class PostManager
     {
         $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id < ? ORDER BY id DESC LIMIT 1');
         $req->execute(array($id));
-        $data = $req->fetch(PDO::FETCH_ASSOC);
+        $data = $req->fetch(\PDO::FETCH_ASSOC);
         if ($data) {
             return new $this->_post($data);
         }
@@ -72,21 +73,21 @@ class PostManager
     public function getLast()
     {
         $req = $this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY id DESC LIMIT 1');
-        $data = $req->fetch(PDO::FETCH_ASSOC);
+        $data = $req->fetch(\PDO::FETCH_ASSOC);
         if ($data) {
             return new $this->_post($data);
         } else {
-            throw new Exception("Aucun ". $this->table ." disponible");
+            throw new \Exception("Aucun ". $this->table ." disponible");
         }
     }
     public function getFirst()
     {
         $req = $this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY id LIMIT 1');
-        $data = $req->fetch(PDO::FETCH_ASSOC);
+        $data = $req->fetch(\PDO::FETCH_ASSOC);
         if ($data) {
             return new $this->_post($data);
         } else {
-            throw new Exception("Aucun ". $this->table ." disponible");
+            throw new \Exception("Aucun ". $this->table ." disponible");
         }
     }
     public function deletePost(Post $post)
@@ -96,29 +97,29 @@ class PostManager
     public function reportPost($id)
     {
         $req = $this->db->prepare('UPDATE  ' . $this->table . '  SET reported = :reported WHERE id = :id');
-        $req->bindValue(':reported', 1, PDO::PARAM_INT);
-        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->bindValue(':reported', 1, \PDO::PARAM_INT);
+        $req->bindValue(':id', $id, \PDO::PARAM_INT);
         $req->execute();
     }
     public function validePost($id)
     {
         $req = $this->db->prepare('UPDATE  ' . $this->table . '  SET reported = :reported WHERE id = :id');
-        $req->bindValue(':reported', 0, PDO::PARAM_INT);
-        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->bindValue(':reported', 0, \PDO::PARAM_INT);
+        $req->bindValue(':id', $id, \PDO::PARAM_INT);
         $req->execute();
     }
     public function getReportedPosts()
     {
         $posts = [];
         $req = $this->db->query('SELECT * FROM ' . $this->table . ' WHERE reported = 1 ORDER BY id DESC');
-        while ($data = $req->fetch(PDO::FETCH_ASSOC))
+        while ($data = $req->fetch(\PDO::FETCH_ASSOC))
         {
             $posts[] = new $this->_post($data);
         }
         if ($posts) {
             return $posts;
         } else {
-            throw new Exception("Aucun ". $this->table ." signalé");
+            throw new \Exception("Aucun ". $this->table ." signalé");
         }
     }
 }

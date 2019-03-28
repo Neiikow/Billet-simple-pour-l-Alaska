@@ -1,4 +1,5 @@
 <?php
+namespace Jordan\Blog\Model;
 class Member
 {
     private $_id;

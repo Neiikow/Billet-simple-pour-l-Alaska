@@ -1,4 +1,5 @@
 <?php
+namespace Jordan\Blog\Model;
 require_once('model/Post.php');
 
 class Comment extends Post

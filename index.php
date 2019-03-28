@@ -1,9 +1,8 @@
 <?php
 session_start();
-require_once('controller/front/action.php');
-//echo "<br><br><br><br><br>";
+require_once('controller/front/ControllerFront.php');
 try {
-    $ctrl = new ControllerFront;
+    $ctrl = new \Jordan\Blog\Controller\ControllerFront;
     if (!isset($_SESSION['role'])) {
         $_SESSION['role'] = 'visitor';
     }
@@ -14,31 +13,31 @@ try {
         $idCom = (int)$_GET['idCom'];
     }
     if (isset($_POST['new-article'])) {
-        $article = new Article([
+        $article = new \Jordan\Blog\Model\Article([
             'author' => $_SESSION['name'],
             'text' => $_POST['text'],
             'title' => $_POST['title']
         ]);
-        $ctrl->addPost('articles', $article);
+        $ctrl->addPost('article', $article);
     }
     elseif (isset($_POST['new-comment'])) {
-        $comment = new Comment([
+        $comment = new \Jordan\Blog\Model\Comment([
             'author' => $_POST['author'],
             'text' => $_POST['text'],
             'postId' => $_GET['id']
         ]);
-        $ctrl->addPost('comments', $comment);
+        $ctrl->addPost('comment', $comment);
     }
     elseif (isset($_POST['edit-article'])) {
-        $article = new Article([
+        $article = new \Jordan\Blog\Model\Article([
             'text' => $_POST['text'],
             'title' => $_POST['title'],
             'id' => $id
         ]);
-        $ctrl->editPost('articles', $article);
+        $ctrl->editPost('article', $article);
     }
     elseif (isset($_POST['edit-member'])) {
-        $member = new Member([
+        $member = new \Jordan\Blog\Model\Member([
             'name' => $_POST['name'],
             'password' => $_POST['password'],
             'email' => $_POST['email'],
@@ -60,26 +59,26 @@ try {
         switch($_GET['action'])
         {
             case "report":
-                $ctrl->reportPost('comments', $idCom);
-                $ctrl->childsPost('comments', 'article', $id);
+                $ctrl->reportPost('comment', $idCom);
+                $ctrl->childsPost('comment', 'article', $id);
                 break;
             case "valide":
-                $ctrl->validePost('comments', $idCom);
+                $ctrl->validePost('comment', $idCom);
                 if (isset($id)) {
-                    $ctrl->childsPost('comments', 'article', $id);
+                    $ctrl->childsPost('comment', 'article', $id);
                 }
                 break;
             case "edit":
                 $ctrl->post('article', $id);
                 break;
             case "seeComments":
-                $ctrl->childsPost('comments', 'article', $id);
+                $ctrl->childsPost('comment', 'article', $id);
                 break;
             case "deleteComment":
-                $ctrl->deletePost('comments', $idCom);
+                $ctrl->deletePost('comment', $idCom);
                 break;
             case "deleteArticle":
-                $ctrl->deletePost('articles', $id);
+                $ctrl->deletePost('article', $id);
                 break;
             case "logout":
                 $_SESSION['role'] = 'visitor';
@@ -100,7 +99,7 @@ if (isset($_GET['section'])) {
                 {
                     case "articles":
                         try {
-                            $ctrl->posts('articles');
+                            $ctrl->posts('article');
                         }
                         catch (Exception $e) {
                             $ctrl->error($e->getMessage());
@@ -117,7 +116,7 @@ if (isset($_GET['section'])) {
                         break;
                     case "comments":
                         try {
-                            $ctrl->posts('comments');
+                            $ctrl->posts('comment');
                         }
                         catch (Exception $e) {
                             $ctrl->error($e->getMessage());
@@ -128,7 +127,7 @@ if (isset($_GET['section'])) {
                         break;
                     case "reported":
                         try {
-                            $ctrl->reportedPosts('comments');
+                            $ctrl->reportedPosts('comment');
                         }
                         catch (Exception $e) {
                             $ctrl->error($e->getMessage());
@@ -182,7 +181,7 @@ if (isset($_GET['section'])) {
                 $ctrl->nextPost('article', $id);
                 $ctrl->prevPost('article', $id);
                 $ctrl->rowPost('article', $id);
-                $ctrl->countPosts('articles');
+                $ctrl->countPosts('article');
             }
             catch (Exception $e) {
                 $ctrl->error($e->getMessage());

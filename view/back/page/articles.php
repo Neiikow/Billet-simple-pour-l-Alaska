@@ -11,12 +11,7 @@
     </div>
     <div class='col'>
         <div class="container">
-            <?php
-            if (isset($data['articles']))
-            {
-                require('view/back/articles/articles.php');
-            }
-            ?> 
+            <?php require('view/back/articles/articles.php'); ?> 
         </div>
     </div>
 </div>

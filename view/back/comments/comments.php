@@ -9,6 +9,10 @@
             Commentaires signalés
         </button>
     </a>
+    <?php
+    if (isset($data['comments']))
+    {
+    ?>
     <table class="table table-striped table-bordered">
         <thead class='text-center'>
             <tr>
@@ -56,4 +60,9 @@
             ?>
         </tbody>
     </table>
+    <?php
+    } else {
+        echo "<p class='p-3 mb-2 bg-danger text-white'>". $data['error'] ."</p>";
+    }
+    ?>
 </div>

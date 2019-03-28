@@ -13,31 +13,43 @@ class PostManager
         {
             $posts[] = new $this->_post($data);
         }
-        
-        return $posts;
+        if ($posts) {
+            return $posts;
+        } else {
+            throw new Exception("Aucun ". $this->table ." disponible");
+        }
     }
     public function getPost($id)
     {
         $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = ? ORDER BY id');
         $req->execute(array($id));
         $data = $req->fetch(PDO::FETCH_ASSOC);
-
-        return new $this->_post($data);
+        if ($data) {
+            return new $this->_post($data);
+        } else {
+            throw new Exception("Aucun ". $this->table ." disponible");
+        }
     }
     public function getCount()
     {
         $req = $this->db->query('SELECT COUNT(*) FROM ' . $this->table);
         $nb = $req->fetch(PDO::FETCH_ASSOC);
-        
-        return (int) $nb['COUNT(*)'];
+        if ($nb) {
+            return (int) $nb['COUNT(*)'];
+        } else {
+            throw new Exception("Aucun ". $this->table ." disponible");
+        }
     }
     public function getRow($id)
     {
         $req = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE id <= ? ORDER BY id');
         $req->execute(array($id));
         $nb = $req->fetch(PDO::FETCH_ASSOC);
-        
-        return (int) $nb['COUNT(*)'];
+        if ($nb) {
+            return (int) $nb['COUNT(*)'];
+        } else {
+            throw new Exception("Aucun ". $this->table ." disponible");
+        }
     }
     public function getNext($id)
     {
@@ -61,15 +73,21 @@ class PostManager
     {
         $req = $this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY id DESC LIMIT 1');
         $data = $req->fetch(PDO::FETCH_ASSOC);
-        
-        return new $this->_post($data);
+        if ($data) {
+            return new $this->_post($data);
+        } else {
+            throw new Exception("Aucun ". $this->table ." disponible");
+        }
     }
     public function getFirst()
     {
         $req = $this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY id LIMIT 1');
         $data = $req->fetch(PDO::FETCH_ASSOC);
-        
-        return new $this->_post($data);
+        if ($data) {
+            return new $this->_post($data);
+        } else {
+            throw new Exception("Aucun ". $this->table ." disponible");
+        }
     }
     public function deletePost(Post $post)
     {
@@ -97,7 +115,10 @@ class PostManager
         {
             $posts[] = new $this->_post($data);
         }
-        
-        return $posts;
+        if ($posts) {
+            return $posts;
+        } else {
+            throw new Exception("Aucun ". $this->table ." signalé");
+        }
     }
 }

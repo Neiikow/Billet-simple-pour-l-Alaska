@@ -17,6 +17,9 @@ class ControllerFront
     public function setUrl($url, $page) {
         $this->_url = ('view/'. $url .'/page/'. $page .'.php');
     }
+    public function error($msg) {
+        $this->_data['error'] = $msg;
+    }
     public function posts($type){
         $this->_data[$type] = getManager($type)->getPosts();
     }

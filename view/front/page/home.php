@@ -15,6 +15,8 @@
     <h2 class='text-uppercase'>Dernier article</h2>
     <?php
         require('view/front/articles/article.php');
+    } else {
+        echo "<p class='p-3 mb-2 bg-danger text-white'>". $data['error'] ."</p>";
     }
     ?>
 <?php $content = ob_get_clean(); ?>

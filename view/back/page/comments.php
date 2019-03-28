@@ -11,12 +11,7 @@
     </div>
     <div class='col'>
         <div class="container">
-            <?php
-            if (isset($data['comments']))
-            {
-                require('view/back/comments/comments.php');
-            }
-            ?> 
+            <?php require('view/back/comments/comments.php'); ?> 
         </div>
     </div>
 </div>

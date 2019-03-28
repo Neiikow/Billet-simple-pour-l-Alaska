@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 require_once('controller/front/action.php');
 //echo "<br><br><br><br><br>";
 try {
@@ -73,12 +72,6 @@ try {
             case "seeComments":
                 $ctrl->childsPost('comments', 'article', $id);
                 break;
-            case "new-article":
-                ////////////
-                break;
-            case "edit":
-                ////////////
-                break;
             case "deleteComment":
                 $ctrl->deletePost('comments', $idCom);
                 break;
@@ -91,49 +84,89 @@ try {
                 break;
         }
     }
-    if (isset($_GET['section'])) {
-        switch($_GET['section'])
-        {
-            case "admin":
-                if ($_SESSION['role'] === 'admin') {
-                    switch($_GET['page'])
-                    {
-                        case "articles":
+}
+catch (Exception $e) {
+    $ctrl->error($e->getMessage());
+}
+if (isset($_GET['section'])) {
+    switch($_GET['section'])
+    {
+        case "admin":
+            if ($_SESSION['role'] === 'admin') {
+                switch($_GET['page'])
+                {
+                    case "articles":
+                        try {
                             $ctrl->posts('articles');
+                        }
+                        catch (Exception $e) {
+                            $ctrl->error($e->getMessage());
+                        }
+                        finally {
                             $ctrl->setUrl('back', 'articles');
-                            break;
-                        case "new":
-                            $ctrl->setUrl('back', 'new');
-                            break;
-                        case "comments":
+                        }
+                        break;
+                    case "new":
+                        $ctrl->setUrl('back', 'new');
+                        break;
+                    case "comments":
+                        try {
                             $ctrl->posts('comments');
+                        }
+                        catch (Exception $e) {
+                            $ctrl->error($e->getMessage());
+                        }
+                        finally {
                             $ctrl->setUrl('back', 'comments');
-                            break;
-                        case "reported":
+                        }
+                        break;
+                    case "reported":
+                        try {
                             $ctrl->reportedPosts('comments');
+                        }
+                        catch (Exception $e) {
+                            $ctrl->error($e->getMessage());
+                        }
+                        finally {
                             $ctrl->setUrl('back', 'comments');
-                            break;
-                        case "profile":
+                        }
+                        break;
+                    case "profile":
+                        try {
                             $ctrl->user($_SESSION['name'], $_SESSION['password']);
+                        }
+                        catch (Exception $e) {
+                            $ctrl->error($e->getMessage());
+                        }
+                        finally {
                             $ctrl->setUrl('back', 'profile');
-                            break;
-                        case "settings":
-                            $ctrl->setUrl('back', 'settings');
-                            break;
-                    }
-                } else {
-                    header('Location: index.php');
+                        }
+                        break;
+                    case "settings":
+                        $ctrl->setUrl('back', 'settings');
+                        break;
                 }
-                break;
-        }
-    } elseif (isset($_GET['page'])) {
-        switch($_GET['page'])
-        {
-            case "home":
+            } else {
+                header('Location: index.php');
+            }
+            break;
+    }
+} elseif (isset($_GET['page'])) {
+    switch($_GET['page'])
+    {
+        case "home":
+            try {
                 $ctrl->lastPost('article');
+            } 
+            catch (Exception $e) {
+                $ctrl->error($e->getMessage());
+            }
+            finally {
                 $ctrl->setUrl('front', 'home');
-                break;
-            case "articles":
+            }
+            break;
+        case "articles":
+            try {
                 $ctrl->firstPost('article');
                 $ctrl->lastPost('article');
                 if (!isset($id)) {
@@ -144,20 +177,37 @@ try {
                 $ctrl->prevPost('article', $id);
                 $ctrl->rowPost('article', $id);
                 $ctrl->countPosts('articles');
+            }
+            catch (Exception $e) {
+                $ctrl->error($e->getMessage());
+            }
+            finally {
                 $ctrl->setUrl('front', 'articles');
-                break;
-            case "contact":	
+            }
+            break;
+        case "contact":
+            try {
                 $ctrl->role('admin');
+            } 
+            catch (Exception $e) {
+                $ctrl->error($e->getMessage());
+            }
+            finally {
                 $ctrl->setUrl('front', 'contact');
-                break;
-        }
+            }
+            break;
     }
-    else {
+}
+else {
+    try {
         $_GET['page'] = "home";
         $ctrl->lastPost('article');
+    }
+    catch (Exception $e) {
+        $ctrl->error($e->getMessage());
+    }
+    finally {
         $ctrl->setUrl('front', 'home');
     }
-    $ctrl->loadPage();
-} catch (Exception $e) {
-    die('Erreur : '.$e->getMessage());
 }
+$ctrl->loadPage();

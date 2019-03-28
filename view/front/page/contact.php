@@ -11,7 +11,13 @@
             <?php require('view/front/contact/form.php'); ?>
         </div>
         <div class='col-md-4'>
-            <?php require('view/front/contact/info.php'); ?>
+            <?php
+            if (isset($data['admin'])) {
+                require('view/front/contact/info.php');
+            } else {
+                echo "<p class='p-3 mb-2 bg-danger text-white'>". $data['error'] ."</p>";
+            }
+            ?>
         </div>
     </section>
 <?php $content = ob_get_clean(); ?>

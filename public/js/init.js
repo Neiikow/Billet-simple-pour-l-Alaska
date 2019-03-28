@@ -39,7 +39,7 @@ content.keyup(()=>{
 function alertLength(content) {
     const submit = $('.post-submit')
     const alert = $(".content-length")
-    if (content.length > 10) {
+    if (content.length > 10000) {
         submit.attr({
             disabled: true
         });

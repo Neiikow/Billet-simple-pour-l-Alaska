@@ -19,7 +19,7 @@ $articleDate = htmlspecialchars($data['article']->datePost());
             <?php
                 if ($_SESSION['role'] === 'admin') {
                     echo
-                    '<a href="index.php?page='. $_GET['page'] .'&action=edit&id='. $articleId .'">
+                    '<a href="index.php?section=admin&page=edit&action=edit&id='. $articleId .'">
                         <button type="button" name="edit" class="btn btn-link text-info btn-sm">
                             Editer
                         </button>

@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <a href="index.php?section=<?= $_GET['section']; ?>&page=new&action=new-article">
+    <a href="index.php?section=<?= $_GET['section']; ?>&page=new">
         <button type='button' class='btn btn-outline-dark mb-2'>
             Nouveau
         </button>
@@ -28,9 +28,11 @@
             ?>
             <tr id='article<?= $articleId ?>'>
                 <td class="text-nowrap text-center">
-                    <button type="button" name="edit" class="btn btn-link text-info btn-sm">
-                        Editer
-                    </button>
+                    <a href="index.php?section=admin&page=edit&action=edit&id=<?= $articleId ?>">
+                        <button type="button" name="edit" class="btn btn-link text-info btn-sm">
+                            Editer
+                        </button>
+                    </a>
                     <a href="javascript:window.location.href='index.php?page=<?= $_GET['page']; ?>&section=<?= $_GET['section']; ?>&action=deleteArticle&id=<?= $articleId ?>'+'&scroll='+document.documentElement.scrollTop">
                         <button type="button" name="delete" class="btn btn-link text-info btn-sm">
                             Supprimer

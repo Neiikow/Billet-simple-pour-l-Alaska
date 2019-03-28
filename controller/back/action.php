@@ -21,7 +21,7 @@ trait ControllerBack
     public function editMember($member){
         getManager('members')->editMember($member);
     }
-    /*public function editPost($id){
-        getManager('comments')->editPost(getManager('comments')->getPost($id));
-    }*/
+    public function editPost($type, $post){
+        getManager($type)->editPost($post);
+    }
 }

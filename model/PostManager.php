@@ -21,7 +21,7 @@ class PostManager
     }
     public function getPost($id)
     {
-        $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = ? ORDER BY id');
+        $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = ?');
         $req->execute(array($id));
         $data = $req->fetch(PDO::FETCH_ASSOC);
         if ($data) {

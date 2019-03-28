@@ -22,7 +22,7 @@
                     <?php
                     if ($_SESSION['role'] != 'admin') {
                         echo
-                        '<a href="index.php?page='. $_GET['page'] .'&action=report&id='. $articleId .'&idCom='. $commentId .'">
+                        '<a href="javascript:window.location.href=\'index.php?page='. $_GET['page'] .'&action=report&id='. $articleId .'&idCom='. $commentId .'\'+\'&scroll=\'+document.documentElement.scrollTop">
                             <button type="button" name="report" class="btn btn-link text-info btn-sm">
                                 Signaler
                             </button>

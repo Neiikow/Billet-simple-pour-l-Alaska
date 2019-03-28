@@ -31,11 +31,11 @@ try {
     }
     elseif (isset($_POST['edit-article'])) {
         $article = new Article([
-            'author' => $_SESSION['name'],
             'text' => $_POST['text'],
-            'title' => $_POST['title']
+            'title' => $_POST['title'],
+            'id' => $id
         ]);
-        $ctrl->editPost($article);
+        $ctrl->editPost('articles', $article);
     }
     elseif (isset($_POST['edit-member'])) {
         $member = new Member([
@@ -68,6 +68,9 @@ try {
                 if (isset($id)) {
                     $ctrl->childsPost('comments', 'article', $id);
                 }
+                break;
+            case "edit":
+                $ctrl->post('article', $id);
                 break;
             case "seeComments":
                 $ctrl->childsPost('comments', 'article', $id);
@@ -108,6 +111,9 @@ if (isset($_GET['section'])) {
                         break;
                     case "new":
                         $ctrl->setUrl('back', 'new');
+                        break;
+                    case "edit":
+                        $ctrl->setUrl('back', 'edit');
                         break;
                     case "comments":
                         try {

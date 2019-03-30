@@ -10,8 +10,12 @@
         </button>
     </a>
     <?php
+    if (isset($data['chapters'])) {
+        $data['comments'] = $data['chapters'];
+    }
     if (isset($data['comments']))
     {
+        
     ?>
     <table class="table table-striped table-bordered">
         <thead class='text-center'>
@@ -29,7 +33,7 @@
                 $commentId = htmlspecialchars($data['comment']->id());
                 $commentText = htmlspecialchars($data['comment']->text());
                 $commentAuthor = htmlspecialchars($data['comment']->author());
-                $commentDate = htmlspecialchars($data['comment']->datePost());
+                $commentDate = preg_replace("#([0-9]{4})-([0-9]{2})-([0-9]{2})\s([0-9]{2}):([0-9]{2}):([0-9]{2})#", 'le $3/$2/$1 à $4h$5', $data['comment']->datePost());
                 $reported = htmlspecialchars($data['comment']->reported());
             ?>
             <tr id='comment<?= $commentId ?>'>

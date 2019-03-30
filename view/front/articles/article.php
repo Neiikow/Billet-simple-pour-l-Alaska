@@ -1,9 +1,9 @@
 <?php
-$articleId = htmlspecialchars($data['article']->id());
-$articleTitle = htmlspecialchars($data['article']->title());
-$articleText = $data['article']->text();
-$articleAuthor = htmlspecialchars($data['article']->author());
-$articleDate = htmlspecialchars($data['article']->datePost());
+$articleId = htmlspecialchars($data['chapter']->id());
+$articleTitle = htmlspecialchars($data['chapter']->title());
+$articleText = $data['chapter']->text();
+$articleAuthor = htmlspecialchars($data['chapter']->author());
+$articleDate = preg_replace("#([0-9]{4})-([0-9]{2})-([0-9]{2})\s([0-9]{2}):([0-9]{2}):([0-9]{2})#", 'le $3/$2/$1 à $4h$5', $data['chapter']->datePost());
 ?>
 <section id='article-<?= $articleId ?>' class='post jumbotron border border-dark'>
     <h3><?= $articleTitle ?></h3>
@@ -27,7 +27,7 @@ $articleDate = htmlspecialchars($data['article']->datePost());
                 }
             ?>
         </div>
-        <p class='btn-sm date font-italic'><strong><?= $articleAuthor ?></strong> le <?= $articleDate ?></p>
+        <p class='btn-sm date font-italic'><strong><?= $articleAuthor ?></strong> <?= $articleDate ?></p>
     </div>
     <?php
     if (isset($data['comments'])) {

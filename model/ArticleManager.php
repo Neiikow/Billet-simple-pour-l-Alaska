@@ -15,10 +15,11 @@ class ArticleManager extends PostManager
     
     public function addPost(Post $post)
     {
-        $req = $this->db->prepare('INSERT INTO ' . $this->table . '(title, author, text) VALUES(:title, :author, :text)');
+        $req = $this->db->prepare('INSERT INTO ' . $this->table . '(title, author, text, grp) VALUES(:title, :author, :text, :grp)');
         $req->bindValue(':title', $post->title(), \PDO::PARAM_STR);
         $req->bindValue(':text', $post->text(), \PDO::PARAM_STR);
         $req->bindValue(':author', $post->author(), \PDO::PARAM_STR);
+        $req->bindValue(':grp', $post->grp(), \PDO::PARAM_STR);
         $req->execute();
     }
     public function editPost(Post $post)

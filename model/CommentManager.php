@@ -27,10 +27,11 @@ class CommentManager extends PostManager
     }
     public function addPost(Comment $post)
     {
-        $req = $this->db->prepare('INSERT INTO ' . $this->table . '(postId, author, text) VALUES(:postId, :author, :text)');
+        $req = $this->db->prepare('INSERT INTO ' . $this->table . '(postId, author, text, grp) VALUES(:postId, :author, :text, :grp)');
         $req->bindValue(':postId', $post->postId(), \PDO::PARAM_INT);
         $req->bindValue(':text', $post->text(), \PDO::PARAM_STR);
         $req->bindValue(':author', $post->author(), \PDO::PARAM_STR);
+        $req->bindValue(':grp', $post->grp(), \PDO::PARAM_STR);
         $req->execute();
     }
     public function editPost(Comment $post)

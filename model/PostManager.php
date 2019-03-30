@@ -6,10 +6,11 @@ class PostManager
 {
     use DbManager;
 
-    public function getPosts()
+    public function getPosts($grp)
     {
         $posts = [];
-        $req = $this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY id DESC');
+        $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE grp = ? ORDER BY id DESC');
+        $req->execute(array($grp));
         while ($data = $req->fetch(\PDO::FETCH_ASSOC))
         {
             $posts[] = new $this->_post($data);
@@ -31,9 +32,10 @@ class PostManager
             throw new \Exception("Aucun ". $this->table ." disponible");
         }
     }
-    public function getCount()
+    public function getCount($grp)
     {
-        $req = $this->db->query('SELECT COUNT(*) FROM ' . $this->table);
+        $req = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE grp = ?');
+        $req->execute(array($grp));
         $nb = $req->fetch(\PDO::FETCH_ASSOC);
         if ($nb) {
             return (int) $nb['COUNT(*)'];
@@ -41,10 +43,10 @@ class PostManager
             throw new \Exception("Aucun ". $this->table ." disponible");
         }
     }
-    public function getRow($id)
+    public function getRow($id, $grp)
     {
-        $req = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE id <= ? ORDER BY id');
-        $req->execute(array($id));
+        $req = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE id <= ? AND grp = ? ORDER BY id');
+        $req->execute(array($id, $grp));
         $nb = $req->fetch(\PDO::FETCH_ASSOC);
         if ($nb) {
             return (int) $nb['COUNT(*)'];
@@ -52,27 +54,28 @@ class PostManager
             throw new \Exception("Aucun ". $this->table ." disponible");
         }
     }
-    public function getNext($id)
+    public function getNext($id, $grp)
     {
-        $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id > ? ORDER BY id ASC LIMIT 1');
-        $req->execute(array($id));
+        $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id > ? AND grp = ? ORDER BY id ASC LIMIT 1');
+        $req->execute(array($id, $grp));
         $data = $req->fetch(\PDO::FETCH_ASSOC);
         if ($data) {
             return new $this->_post($data);
         }
     }
-    public function getPrev($id)
+    public function getPrev($id, $grp)
     {
-        $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id < ? ORDER BY id DESC LIMIT 1');
-        $req->execute(array($id));
+        $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id < ? AND grp = ? ORDER BY id DESC LIMIT 1');
+        $req->execute(array($id, $grp));
         $data = $req->fetch(\PDO::FETCH_ASSOC);
         if ($data) {
             return new $this->_post($data);
         }
     }
-    public function getLast()
+    public function getLast($grp)
     {
-        $req = $this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY id DESC LIMIT 1');
+        $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE grp = ? ORDER BY id DESC LIMIT 1');
+        $req->execute(array($grp));
         $data = $req->fetch(\PDO::FETCH_ASSOC);
         if ($data) {
             return new $this->_post($data);
@@ -80,9 +83,10 @@ class PostManager
             throw new \Exception("Aucun ". $this->table ." disponible");
         }
     }
-    public function getFirst()
+    public function getFirst($grp)
     {
-        $req = $this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY id LIMIT 1');
+        $req = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE grp = ? ORDER BY id LIMIT 1');
+        $req->execute(array($grp));
         $data = $req->fetch(\PDO::FETCH_ASSOC);
         if ($data) {
             return new $this->_post($data);

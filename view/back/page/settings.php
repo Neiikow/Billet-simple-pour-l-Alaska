@@ -12,7 +12,7 @@
     <div class='col'>
         <div class="container">
             <?php
-            if (isset($data['settings']))
+            if (isset($data['intros']))
             {
                 require('view/back/settings/settings.php');
             }

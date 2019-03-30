@@ -6,6 +6,7 @@ abstract class Post
     private $_author;
     private $_datePost;
     private $_text;
+    private $_grp;
 
     public function __construct($data)
     {
@@ -46,9 +47,17 @@ abstract class Post
     {
         $this->_datePost = $datePost;
     }
+    public function setGrp($grp)
+    {
+        if (is_string($grp))
+        {
+            $this->grp = $grp;
+        }
+    }
 
     public function id() { return $this->_id; }
     public function author() { return $this->_author; }
     public function datePost() { return $this->_datePost; }
     public function text() { return $this->_text; }
+    public function grp() { return $this->grp; }
 }

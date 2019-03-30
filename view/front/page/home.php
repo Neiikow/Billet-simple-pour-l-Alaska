@@ -5,15 +5,23 @@
 <?php $nav = ob_get_clean(); ?>
 
 <?php ob_start(); ?>
-    <h2 class='text-uppercase'>Bienvenue</h2>
-    <?php require('view/front/intro.php'); ?>
     <?php
-    if (isset($data['lastArticle']))
+    if (isset($data['intros'][0]))
     {
-        $data['article'] = $data['lastArticle'];
-    ?>
-    <h2 class='text-uppercase'>Dernier article</h2>
-    <?php
+        $introTitle = htmlspecialchars($data['intros'][0]->title());
+        ?>
+        <h2 class='text-uppercase'><?= $introTitle ?></h2>
+        <?php
+        require('view/front/intro.php');
+    } else {
+        echo "<p class='p-3 mb-2 bg-danger text-white'>". $data['error'] ."</p>";
+    }
+    if (isset($data['lastChapter']))
+    {
+        $data['chapter'] = $data['lastChapter'];
+        ?>
+        <h2 class='text-uppercase'>Dernier article</h2>
+        <?php
         require('view/front/articles/article.php');
     } else {
         echo "<p class='p-3 mb-2 bg-danger text-white'>". $data['error'] ."</p>";

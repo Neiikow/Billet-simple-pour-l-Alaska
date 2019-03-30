@@ -6,13 +6,13 @@
             $commentId = htmlspecialchars($comment->id());
             $commentText = htmlspecialchars($comment->text());
             $commentAuthor = htmlspecialchars($comment->author());
-            $commentDate = htmlspecialchars($comment->datePost());
+            $commentDate = preg_replace("#([0-9]{4})-([0-9]{2})-([0-9]{2})\s([0-9]{2}):([0-9]{2}):([0-9]{2})#", 'le $3/$2/$1 à $4h$5', $comment->datePost());
             $reported = $comment->reported();
         ?>
             <tr id='comment<?= $commentId ?>' class='row'>
                 <td class='col-md-2 text-center pl-1 pr-1'>
                     <p><strong><?= $commentAuthor ?></strong></p>
-                    <p class='date'> le <?= $commentDate ?></p>
+                    <p class='date'> <?= $commentDate ?></p>
                 </td>
                 <td class='col <?php if ($reported) { echo 'reported'; } ?>'>
                     <p>

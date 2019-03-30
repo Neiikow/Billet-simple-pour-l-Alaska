@@ -5,7 +5,7 @@
         </button>
     </a>
     <?php
-    if (isset($data['articles']))
+    if (isset($data['chapters']))
     {
     ?>
     <table class="table table-striped table-bordered">
@@ -19,12 +19,12 @@
         </thead>
         <tbody>
             <?php
-            foreach ($data['articles'] as $data['article'])
+            foreach ($data['chapters'] as $data['chapter'])
             {
-                $articleId = htmlspecialchars($data['article']->id());
-                $articleTitle = htmlspecialchars($data['article']->title());
-                $articleAuthor = htmlspecialchars($data['article']->author());
-                $articleDate = htmlspecialchars($data['article']->datePost());
+                $articleId = htmlspecialchars($data['chapter']->id());
+                $articleTitle = htmlspecialchars($data['chapter']->title());
+                $articleAuthor = htmlspecialchars($data['chapter']->author());
+                $articleDate = preg_replace("#([0-9]{4})-([0-9]{2})-([0-9]{2})\s([0-9]{2}):([0-9]{2}):([0-9]{2})#", 'le $3/$2/$1 à $4h$5', $data['chapter']->datePost());
             ?>
             <tr id='article<?= $articleId ?>'>
                 <td class="text-nowrap text-center">

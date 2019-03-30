@@ -21,37 +21,38 @@ class ControllerFront
     public function error($msg) {
         $this->_data['error'] = $msg;
     }
-    public function posts($type){
-        $this->_data[$type.'s'] = \DBFactory::getManager($type)->getPosts();
+    public function posts($type, $group){
+        $this->_data[$group.'s'] = \DBFactory::getManager($type)->getPosts($group);
     }
     public function post($type, $id) {
-        $this->_data[$type] = \DBFactory::getManager($type)->getPost($id);
+        $group = \DBFactory::getManager($type)->getPost($id)->grp();
+        $this->_data[$group] = \DBFactory::getManager($type)->getPost($id);
     }
-    public function lastPost($type){
-        $this->_data['last'.ucfirst($type)] = \DBFactory::getManager($type)->getLast();
+    public function lastPost($type, $group){
+        $this->_data['last'.ucfirst($group)] = \DBFactory::getManager($type)->getLast($group);
     }
-    public function firstPost($type){
-        $this->_data['first'.ucfirst($type)] = \DBFactory::getManager($type)->getFirst();
+    public function firstPost($type, $group){
+        $this->_data['first'.ucfirst($group)] = \DBFactory::getManager($type)->getFirst($group);
     }
-    public function nextPost($type, $id){
-        if (\DBFactory::getManager($type)->getNext($this->_data['article']->id())) {
-            $this->_data['next'.ucfirst($type)] = \DBFactory::getManager($type)->getNext($this->_data['article']->id());
+    public function nextPost($type, $id, $group){
+        if (\DBFactory::getManager($type)->getNext($this->_data[$group]->id(), $group)) {
+            $this->_data['next'.ucfirst($group)] = \DBFactory::getManager($type)->getNext($this->_data[$group]->id(), $group);
         } else {
-            $this->_data['next'.ucfirst($type)] = \DBFactory::getManager($type)->getLast();
+            $this->_data['next'.ucfirst($group)] = \DBFactory::getManager($type)->getLast($group);
         }
     }
-    public function prevPost($type, $id){
-        if (\DBFactory::getManager($type)->getPrev($this->_data['article']->id())) {
-            $this->_data['prev'.ucfirst($type)] = \DBFactory::getManager($type)->getPrev($this->_data['article']->id());
+    public function prevPost($type, $id, $group){
+        if (\DBFactory::getManager($type)->getPrev($this->_data[$group]->id(), $group)) {
+            $this->_data['prev'.ucfirst($group)] = \DBFactory::getManager($type)->getPrev($this->_data[$group]->id(), $group);
         } else {
-            $this->_data['prev'.ucfirst($type)] = \DBFactory::getManager($type)->getFirst();
+            $this->_data['prev'.ucfirst($group)] = \DBFactory::getManager($type)->getFirst($group);
         }
     }
-    public function rowPost($type, $id){
-        $this->_data['current'.ucfirst($type)] = \DBFactory::getManager($type)->getRow($id);
+    public function rowPost($type, $id, $group){
+        $this->_data['current'.ucfirst($group)] = \DBFactory::getManager($type)->getRow($id, $group);
     }
-    public function countPosts($type){
-        $this->_data['total'.ucfirst($type).'s'] = \DBFactory::getManager($type)->getCount();
+    public function countPosts($type, $group){
+        $this->_data['total'.ucfirst($group).'s'] = \DBFactory::getManager($type)->getCount($group);
     }
     public function childsPost($childs, $parrent, $idParrent){
         $this->_data[$childs.'s'] = \DBFactory::getManager($childs)->postComments($idParrent);

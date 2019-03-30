@@ -7,9 +7,9 @@
 <?php ob_start(); ?>
     <h2 class='text-uppercase'>Tous les articles</h2>
     <?php
-    if (isset($data['article']))
+    if (isset($data['chapter']))
     {
-        $articleId = htmlspecialchars($data['article']->id());
+        $articleId = htmlspecialchars($data['chapter']->id());
         require('view/front/articles/nav.php');
         require('view/front/articles/article.php');
         require('view/front/articles/nav.php');

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('controller/front/ControllerFront.php');
+//echo ('<br><br><br><br><br><br>');
 try {
     $ctrl = new \Jordan\Blog\Controller\ControllerFront;
     if (!isset($_SESSION['role'])) {
@@ -16,7 +17,8 @@ try {
         $article = new \Jordan\Blog\Model\Article([
             'author' => $_SESSION['name'],
             'text' => $_POST['text'],
-            'title' => $_POST['title']
+            'title' => $_POST['title'],
+            'grp' => "chapter"
         ]);
         $ctrl->addPost('article', $article);
     }
@@ -24,7 +26,8 @@ try {
         $comment = new \Jordan\Blog\Model\Comment([
             'author' => $_POST['author'],
             'text' => $_POST['text'],
-            'postId' => $_GET['id']
+            'postId' => $_GET['id'],
+            'grp' => "chapter"
         ]);
         $ctrl->addPost('comment', $comment);
     }
@@ -99,7 +102,7 @@ if (isset($_GET['section'])) {
                 {
                     case "articles":
                         try {
-                            $ctrl->posts('article');
+                            $ctrl->posts('article', 'chapter');
                         }
                         catch (Exception $e) {
                             $ctrl->error($e->getMessage());
@@ -116,7 +119,7 @@ if (isset($_GET['section'])) {
                         break;
                     case "comments":
                         try {
-                            $ctrl->posts('comment');
+                            $ctrl->posts('comment', 'chapter');
                         }
                         catch (Exception $e) {
                             $ctrl->error($e->getMessage());
@@ -148,6 +151,7 @@ if (isset($_GET['section'])) {
                         }
                         break;
                     case "settings":
+                        $ctrl->posts('article', 'intro');
                         $ctrl->setUrl('back', 'settings');
                         break;
                 }
@@ -161,7 +165,8 @@ if (isset($_GET['section'])) {
     {
         case "home":
             try {
-                $ctrl->lastPost('article');
+                $ctrl->posts('article', 'intro');
+                $ctrl->lastPost('article', 'chapter');
             } 
             catch (Exception $e) {
                 $ctrl->error($e->getMessage());
@@ -172,16 +177,16 @@ if (isset($_GET['section'])) {
             break;
         case "articles":
             try {
-                $ctrl->firstPost('article');
-                $ctrl->lastPost('article');
+                $ctrl->firstPost('article', 'chapter');
+                $ctrl->lastPost('article', 'chapter');
                 if (!isset($id)) {
-                    $id = $ctrl->data('firstArticle')->id();
+                    $id = $ctrl->data('firstChapter')->id();
                 }
                 $ctrl->post('article', $id);
-                $ctrl->nextPost('article', $id);
-                $ctrl->prevPost('article', $id);
-                $ctrl->rowPost('article', $id);
-                $ctrl->countPosts('article');
+                $ctrl->nextPost('article', $id, 'chapter');
+                $ctrl->prevPost('article', $id, 'chapter');
+                $ctrl->rowPost('article', $id, 'chapter');
+                $ctrl->countPosts('article', 'chapter');
             }
             catch (Exception $e) {
                 $ctrl->error($e->getMessage());
@@ -206,7 +211,8 @@ if (isset($_GET['section'])) {
 else {
     try {
         $_GET['page'] = "home";
-        $ctrl->lastPost('article');
+        $ctrl->posts('article', 'intro');
+        $ctrl->lastPost('article', 'chapter');
     }
     catch (Exception $e) {
         $ctrl->error($e->getMessage());

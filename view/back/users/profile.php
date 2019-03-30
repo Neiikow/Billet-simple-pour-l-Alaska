@@ -1,4 +1,4 @@
-<form action="index.php?page=<?php echo $_GET['page']; ?>&section=<?php echo $_GET['section']; ?>&id=<?= $data['user']->id() ?>" method="post" class='w-50 m-auto'>
+<form action="index.php?page=<?php echo $_GET['page']; ?>&id=<?= $data['user']->id() ?>" method="post" class='w-50 m-auto'>
     <div class="form-group row justify-content-md-center">
         <label for="name" class="col-sm-3 col-form-label">Pseudo</label>
         <div>

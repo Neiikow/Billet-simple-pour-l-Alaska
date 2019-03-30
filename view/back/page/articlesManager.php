@@ -1,4 +1,4 @@
-<?php $title = "Commentaires"; ?>
+<?php $title = "Articles"; ?>
 
 <?php ob_start(); ?>
     <?php require('view/front/header/nav.php'); ?>
@@ -11,11 +11,13 @@
     </div>
     <div class='col'>
         <div class="container">
-            <?php require('view/back/comments/comments.php'); ?> 
+            <?php require('view/back/articles/articles.php'); ?> 
         </div>
     </div>
 </div>
     
 <?php $content = ob_get_clean(); ?>
+
+<?php $footer = "<footer></footer>"; ?>
 
 <?php require('view/template.php'); ?>

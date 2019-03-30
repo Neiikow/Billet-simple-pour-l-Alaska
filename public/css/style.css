@@ -33,11 +33,12 @@
     #dashboard {
         margin-top : -80px;
         width: 150px;
+        position : fixed;
+        left:0;
     }
     #dashboard nav {
         width: 150px;
         margin-top : 80px;
-        position : fixed;
     }
 /* Class */
     .comments {

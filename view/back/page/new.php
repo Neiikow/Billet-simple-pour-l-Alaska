@@ -18,4 +18,6 @@
     
 <?php $content = ob_get_clean(); ?>
 
+<?php $footer = "<footer></footer>"; ?>
+
 <?php require('view/template.php'); ?>

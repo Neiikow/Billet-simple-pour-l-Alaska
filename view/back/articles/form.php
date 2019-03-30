@@ -6,7 +6,7 @@ if (isset($data['chapter'])) {
     $data['article'] = $data['chapter'];
 }
 ?>
-<form action="index.php?section=<?= $_GET['section']; ?>&page=articles<?php if (isset($data['article'])) { echo "&id=".htmlspecialchars($data['article']->id()); } ?>" method="post">
+<form action="index.php?page=articlesManager<?php if (isset($data['article'])) { echo "&id=".htmlspecialchars($data['article']->id()); } ?>" method="post">
     <div class="form-group row">
         <input required type="text" class="form-control col-sm-5" name="title" placeholder="Titre" <?php if (isset($data['article'])) { echo "value='".htmlspecialchars($data['article']->title())."'"; } ?>>
     </div>

@@ -17,10 +17,10 @@
         <header>
             <?= $nav ?>
         </header>
-        <div id="content" class="container<?php if($_SESSION['role'] === 'admin' && isset($_GET['section'])) { echo "-fluid"; }; ?>">
+        <div id="content" class="container">
             <?= $content ?>
         </div>
-        <?php if($_SESSION['role'] != 'admin' || !isset($_GET['section'])) { echo "<footer class='bg-dark text-white fixed-bottom'></footer>"; }; ?>
+        <?= $footer ?>
         <script src='public/js/init.js'></script>
     </body>
 </html>

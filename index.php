@@ -93,74 +93,66 @@ try {
 catch (Exception $e) {
     $ctrl->error($e->getMessage());
 }
-if (isset($_GET['section'])) {
-    switch($_GET['section'])
+if ($_SESSION['role'] === 'admin' && isset($_GET['page'])) {
+    switch($_GET['page'])
     {
-        case "admin":
-            if ($_SESSION['role'] === 'admin') {
-                switch($_GET['page'])
-                {
-                    case "articles":
-                        try {
-                            $ctrl->posts('article', 'chapter');
-                        }
-                        catch (Exception $e) {
-                            $ctrl->error($e->getMessage());
-                        }
-                        finally {
-                            $ctrl->setUrl('back', 'articles');
-                        }
-                        break;
-                    case "new":
-                        $ctrl->setUrl('back', 'new');
-                        break;
-                    case "edit":
-                        $ctrl->setUrl('back', 'edit');
-                        break;
-                    case "comments":
-                        try {
-                            $ctrl->posts('comment', 'chapter');
-                        }
-                        catch (Exception $e) {
-                            $ctrl->error($e->getMessage());
-                        }
-                        finally {
-                            $ctrl->setUrl('back', 'comments');
-                        }
-                        break;
-                    case "reported":
-                        try {
-                            $ctrl->reportedPosts('comment');
-                        }
-                        catch (Exception $e) {
-                            $ctrl->error($e->getMessage());
-                        }
-                        finally {
-                            $ctrl->setUrl('back', 'comments');
-                        }
-                        break;
-                    case "profile":
-                        try {
-                            $ctrl->user($_SESSION['name'], $_SESSION['password']);
-                        }
-                        catch (Exception $e) {
-                            $ctrl->error($e->getMessage());
-                        }
-                        finally {
-                            $ctrl->setUrl('back', 'profile');
-                        }
-                        break;
-                    case "settings":
-                        $ctrl->posts('article', 'intro');
-                        $ctrl->setUrl('back', 'settings');
-                        break;
-                }
-            } else {
-                header('Location: index.php');
+        case "articlesManager":
+            try {
+                $ctrl->posts('article', 'chapter');
+            }
+            catch (Exception $e) {
+                $ctrl->error($e->getMessage());
+            }
+            finally {
+                $ctrl->setUrl('back', 'articlesManager');
             }
             break;
+        case "new":
+            $ctrl->setUrl('back', 'new');
+            break;
+        case "edit":
+            $ctrl->setUrl('back', 'edit');
+            break;
+        case "commentsManager":
+            try {
+                $ctrl->posts('comment', 'chapter');
+            }
+            catch (Exception $e) {
+                $ctrl->error($e->getMessage());
+            }
+            finally {
+                $ctrl->setUrl('back', 'commentsManager');
+            }
+            break;
+        case "reported":
+            try {
+                $ctrl->reportedPosts('comment');
+            }
+            catch (Exception $e) {
+                $ctrl->error($e->getMessage());
+            }
+            finally {
+                $ctrl->setUrl('back', 'commentsManager');
+            }
+            break;
+        case "profile":
+            try {
+                $ctrl->user($_SESSION['name'], $_SESSION['password']);
+            }
+            catch (Exception $e) {
+                $ctrl->error($e->getMessage());
+            }
+            finally {
+                $ctrl->setUrl('back', 'profile');
+            }
+            break;
+        case "settings":
+            $ctrl->posts('article', 'intro');
+            $ctrl->setUrl('back', 'settings');
+            break;
     }
-} elseif (isset($_GET['page'])) {
+}
+if (isset($_GET['page'])) {
     switch($_GET['page'])
     {
         case "home":

@@ -29,4 +29,6 @@
     ?>
 <?php $content = ob_get_clean(); ?>
 
+<?php $footer = "<footer class='bg-dark text-white fixed-bottom'></footer>"; ?>
+
 <?php require('view/template.php'); ?>

@@ -1,10 +1,10 @@
 <div class="table-responsive">
-    <a href="index.php?section=<?= $_GET['section']; ?>&page=comments">
+    <a href="index.php?page=commentsManager">
         <button type='button' name='see-comments' class='btn btn-outline-dark mb-2'>
             Tous les commentaires
         </button>
     </a>
-    <a href="index.php?section=<?= $_GET['section']; ?>&page=reported">
+    <a href="index.php?page=reported">
         <button type='button' name='see-reports' class='btn btn-outline-dark mb-2'>
             Commentaires signalés
         </button>
@@ -41,7 +41,7 @@
                     <?php
                     if ($reported) {
                         ob_start();?>
-                            <a href="javascript:window.location.href='index.php?page=<?= $_GET['page']; ?>&section=<?= $_GET['section']; ?>&action=valide&idCom=<?= $commentId ?>'+'&scroll='+document.documentElement.scrollTop">
+                            <a href="javascript:window.location.href='index.php?page=<?= $_GET['page']; ?>&action=valide&idCom=<?= $commentId ?>'+'&scroll='+document.documentElement.scrollTop">
                                 <button type="button" name="valide" class="btn btn-link text-info btn-sm">
                                     Valider
                                 </button>
@@ -49,7 +49,7 @@
                         <?php echo ob_get_clean();
                     }
                     ?>
-                    <a href="javascript:window.location.href='index.php?page=<?= $_GET['page']; ?>&section=<?= $_GET['section']; ?>&action=deleteComment&idCom=<?= $commentId ?>'+'&scroll='+document.documentElement.scrollTop">
+                    <a href="javascript:window.location.href='index.php?page=<?= $_GET['page']; ?>&action=deleteComment&idCom=<?= $commentId ?>'+'&scroll='+document.documentElement.scrollTop">
                         <button type="button" name="delete" class="btn btn-link text-info btn-sm">
                             Supprimer
                         </button>

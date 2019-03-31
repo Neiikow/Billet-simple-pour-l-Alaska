@@ -5,6 +5,11 @@
 <?php $nav = ob_get_clean(); ?>
 
 <?php ob_start(); ?>
+    <?php 
+    if (isset($data['error'])) {
+        echo "<p class='p-3 mb-2 bg-danger text-white'>". $data['error'] ."</p>";
+    }
+    ?>
     <h2 class='text-uppercase'>Tous les articles</h2>
     <?php
     if (isset($data['chapter']))
@@ -13,8 +18,6 @@
         require('view/front/articles/nav.php');
         require('view/front/articles/article.php');
         require('view/front/articles/nav.php');
-    } else {
-        echo "<p class='p-3 mb-2 bg-danger text-white'>". $data['error'] ."</p>";
     }
     ?>
 <?php $content = ob_get_clean(); ?>

@@ -40,16 +40,24 @@ try {
         $ctrl->editPost('article', $article);
     }
     elseif (isset($_POST['edit-member'])) {
-        $member = new \Jordan\Blog\Model\Member([
+        $data = [
             'name' => $_POST['name'],
-            'password' => $_POST['password'],
             'email' => $_POST['email'],
             'phone' => $_POST['phone'],
             'city' => $_POST['city'],
             'street' => $_POST['street'],
             'postal' => $_POST['postal'],
             'id' => $_GET['id']
-        ]);
+        ];
+        if (!empty($_POST['password'])) {
+            if ($_POST['password'] === $_POST['confirm-password']) {
+                $data['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            }
+            else {
+                throw new Exception("Confirmation du mot de passe incorrecte");
+            }
+        }
+        $member = new \Jordan\Blog\Model\Member($data);
         $ctrl->editMember($member);
     }
     elseif (isset($_POST['new-email'])) {
@@ -107,12 +115,6 @@ if ($_SESSION['role'] === 'admin' && isset($_GET['page'])) {
                 $ctrl->setUrl('back', 'articlesManager');
             }
             break;
-        case "new":
-            $ctrl->setUrl('back', 'new');
-            break;
-        case "edit":
-            $ctrl->setUrl('back', 'edit');
-            break;
         case "commentsManager":
             try {
                 $ctrl->posts('comment', 'chapter');
@@ -123,6 +125,12 @@ if ($_SESSION['role'] === 'admin' && isset($_GET['page'])) {
             finally {
                 $ctrl->setUrl('back', 'commentsManager');
             }
+            break;
+        case "new":
+            $ctrl->setUrl('back', 'new');
+            break;
+        case "edit":
+            $ctrl->setUrl('back', 'edit');
             break;
         case "reported":
             try {
@@ -137,7 +145,7 @@ if ($_SESSION['role'] === 'admin' && isset($_GET['page'])) {
             break;
         case "profile":
             try {
-                $ctrl->user($_SESSION['name'], $_SESSION['password']);
+                $ctrl->user($_SESSION['name']);
             }
             catch (Exception $e) {
                 $ctrl->error($e->getMessage());

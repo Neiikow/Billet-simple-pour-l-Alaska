@@ -5,6 +5,11 @@
 <?php $nav = ob_get_clean(); ?>
 
 <?php ob_start(); ?>
+    <?php 
+    if (isset($data['error'])) {
+        echo "<p class='p-3 mb-2 bg-danger text-white'>". $data['error'] ."</p>";
+    }
+    ?>
     <h2 class='text-uppercase'>Me contacter</h2>
     <section class='jumbotron row pl-0 pr-0 border border-dark'>
         <div class='col-md-8 border-right border-secondary'>
@@ -14,8 +19,6 @@
             <?php
             if (isset($data['admin'])) {
                 require('view/front/contact/info.php');
-            } else {
-                echo "<p class='p-3 mb-2 bg-danger text-white'>". $data['error'] ."</p>";
             }
             ?>
         </div>

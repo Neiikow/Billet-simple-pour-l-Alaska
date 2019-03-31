@@ -21,6 +21,7 @@ trait ControllerBack
     }
     public function editMember($member){
         \DBFactory::getManager('member')->editMember($member);
+        $_SESSION['name'] = $member->name();
     }
     public function editPost($type, $post){
         \DBFactory::getManager($type)->editPost($post);

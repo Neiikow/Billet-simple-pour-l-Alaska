@@ -6,9 +6,15 @@
         </div>
     </div>
     <div class="form-group row justify-content-md-center">
-        <label for="password" class="col-sm-3 col-form-label">Mote de passe</label>
+        <label for="password" class="col-sm-3 col-form-label">Mot de passe</label>
         <div>
-            <input type="password" class="form-control" id="password" name="password" value="<?= $data['user']->password() ?>">
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+    </div>
+    <div class="form-group row justify-content-md-center">
+        <label for="confirm-password" class="col-sm-3 col-form-label">Confirmez</label>
+        <div>
+            <input type="password" class="form-control" id="confirm-password" name="confirm-password">
         </div>
     </div>
     <div class="form-group row justify-content-md-center">

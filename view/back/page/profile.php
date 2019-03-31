@@ -11,7 +11,10 @@
     </div>
     <div class='col'>
         <div class="container">
-            <?php
+            <?php 
+            if (isset($data['error'])) {
+                echo "<p class='p-3 mb-2 bg-danger text-white'>". $data['error'] ."</p>";
+            }
             if (isset($data['user']))
             {
                 require('view/back/users/profile.php');

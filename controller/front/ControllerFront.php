@@ -57,18 +57,21 @@ class ControllerFront
     public function childsPost($childs, $parrent, $idParrent){
         $this->_data[$childs.'s'] = \DBFactory::getManager($childs)->postComments($idParrent);
     }
-    public function user($name, $password) {
-        $this->_data['user'] = \DBFactory::getManager('member')->getMember($name, $password);
+    public function user($name) {
+        $this->_data['user'] = \DBFactory::getManager('member')->getMember($name);
     }
     public function role($role) {
         $this->_data[$role] = \DBFactory::getManager('member')->getRole($role);
     }
     public function login($name, $password){
-        $user =  \DBFactory::getManager('member')->getMember($name, $password);
-        if ($user) {
+        $user =  \DBFactory::getManager('member')->getMember($name);
+        $pwCheck = password_verify($password, $user->password());
+        if ($pwCheck) {
             $_SESSION['role'] = $user->role();
             $_SESSION['name'] = $user->name();
-            $_SESSION['password'] = $user->password();
+            $_SESSION['id'] = $user->id();
+        } else {
+            throw new \Exception("Pseudo ou mot de passe incorect");
         }
     }
 }

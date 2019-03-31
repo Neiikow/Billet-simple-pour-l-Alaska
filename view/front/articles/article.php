@@ -7,7 +7,7 @@ $articleDate = preg_replace("#([0-9]{4})-([0-9]{2})-([0-9]{2})\s([0-9]{2}):([0-9
 ?>
 <section id='article-<?= $articleId ?>' class='post jumbotron border border-dark'>
     <h3><?= $articleTitle ?></h3>
-    <p><?= $articleText ?></p>
+    <?= $articleText ?>
     <hr>
     <div class='post-option d-flex justify-content-between align-items-center flex-wrap'>
         <div class='d-flex flex-nowrap'>

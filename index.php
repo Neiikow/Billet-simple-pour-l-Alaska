@@ -61,7 +61,14 @@ try {
         $ctrl->editMember($member);
     }
     elseif (isset($_POST['new-email'])) {
-        echo "Send Email";
+        $data = [
+            'to' => htmlspecialchars($_POST['emailFocus']),
+            'from' => htmlspecialchars($_POST['email']),
+            'message' => htmlspecialchars('Un message de la part de :' .$_POST['name']. '\n\r' .$_POST['message']),
+            'subject' => htmlspecialchars($_POST['title'])
+        ];
+        $ctrl->sendMail($data);
+        $ctrl->success("Email envoyé avec succès !");
     }
     elseif (isset($_POST['sign-in'])) {
         $ctrl->login($_POST['name'], $_POST['password']);

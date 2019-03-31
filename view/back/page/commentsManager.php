@@ -5,17 +5,12 @@
 <?php $nav = ob_get_clean(); ?>
 
 <?php ob_start(); ?>
-<div class='row'>
     <div id='dashboard' class='bg-dark'>
         <?php require('view/back/dashboard/nav.php'); ?>
     </div>
-    <div class='col'>
-        <div class="container">
-            <?php require('view/back/comments/comments.php'); ?> 
-        </div>
+    <div id='admin-content'>
+        <?php require('view/back/comments/comments.php'); ?>
     </div>
-</div>
-    
 <?php $content = ob_get_clean(); ?>
 
 <?php $footer = "<footer></footer>"; ?>

@@ -21,15 +21,47 @@ try {
 //Gestion de la position du footer
 const d = $('html').height()
 const f = $('footer').height()
-const w = window.innerHeight
-if ((d+f)>w) {
+const h = window.innerHeight
+let w = window.innerWidth
+if ((d+f)>h) {
     $('footer').removeClass("fixed-bottom");
 }
 
 //Gestion de la position du dashboard navigation
-$('#dashboard').css({
-    minHeight: w
+window.addEventListener('resize', () => {
+    w = window.innerWidth
+    if (w > '768') {
+        $('#dashboard').css({
+            minHeight: h
+        })
+        $('#admin-content').css({
+            paddingTop : '0px'
+        })
+    } else {
+        $('#dashboard').css({
+            minHeight: 0
+        })
+        $('#admin-content').css({
+            paddingTop : '60px'
+        })
+    }
 })
+if (w > '768') {
+    $('#dashboard').css({
+        minHeight: h
+    })
+    $('#admin-content').css({
+        paddingTop : '0px'
+    })
+    
+} else {
+    $('#dashboard').css({
+        minHeight: 0
+    })
+    $('#admin-content').css({
+        paddingTop : '60px'
+    })
+}
 
 //Gestion de la longueure d'un message
 let content = $('.post-content')

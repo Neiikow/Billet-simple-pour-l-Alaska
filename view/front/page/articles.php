@@ -10,7 +10,7 @@
         echo "<p class='p-3 mb-2 bg-danger text-white'>". $data['error'] ."</p>";
     }
     ?>
-    <h2 class='text-uppercase'>Tous les articles</h2>
+    <h1 class='text-uppercase'>Tous les articles</h1>
     <?php
     if (isset($data['chapter']))
     {

@@ -13,7 +13,7 @@
     {
         $introTitle = htmlspecialchars($data['intros'][0]->title());
         ?>
-        <h2 class='text-uppercase'><?= $introTitle ?></h2>
+        <h1 class='text-uppercase'><?= $introTitle ?></h1>
         <?php
         require('view/front/intro.php');
     } else {

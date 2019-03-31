@@ -21,6 +21,9 @@ class ControllerFront
     public function error($msg) {
         $this->_data['error'] = $msg;
     }
+    public function success($msg) {
+        $this->_data['success'] = $msg;
+    }
     public function posts($type, $group){
         $this->_data[$group.'s'] = \DBFactory::getManager($type)->getPosts($group);
     }
@@ -73,5 +76,12 @@ class ControllerFront
         } else {
             throw new \Exception("Pseudo ou mot de passe incorect");
         }
+    }
+    public function sendMail($data){
+        $to      = $data['to'];
+        $subject = $data['subject'];
+        $message = wordwrap($data['message'], 70, "\r\n");
+        $headers = 'From: '. $data['from'];
+        mail($to, $subject, $message, $headers); 
     }
 }

@@ -3,7 +3,7 @@ $introId = htmlspecialchars($data['intros'][0]->id());
 $introText = $data['intros'][0]->text();
 ?>
 <section id='article-<?= $introId ?>' class='jumbotron border border-dark'>
-    <p><?= $introText ?></p>
+    <?= $introText ?>
     <?php
     if ($_SESSION['role'] === 'admin') {
         echo

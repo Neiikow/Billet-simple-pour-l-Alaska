@@ -1,0 +1,23 @@
+.table-bordered td, .table th {
+    padding : 3px;
+    min-width: 0;
+}
+#dashboard {
+    margin-top : -100px;
+    width: 100%;
+}
+#dashboard nav {
+    flex-direction: row !important;
+    width: 100%;
+    font-size : 12px;
+}
+#admin-content {
+    margin : auto;
+    padding : 10px;
+}
+.navbar-brand {
+    font-size : 16px;
+}
+.nav-link {
+    padding : 10px;
+}

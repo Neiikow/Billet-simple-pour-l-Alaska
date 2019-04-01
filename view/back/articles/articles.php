@@ -1,8 +1,6 @@
 <div class="table-responsive">
-    <a href="index.php?page=new">
-        <button type='button' class='btn btn-outline-dark mb-2'>
-            Nouveau
-        </button>
+    <a href="index.php?page=new" class='btn btn-outline-dark mb-2'>
+        Nouveau
     </a>
     <?php
     if (isset($data['chapters']))
@@ -28,15 +26,11 @@
             ?>
             <tr id='article<?= $articleId ?>'>
                 <td class="text-nowrap text-center">
-                    <a href="index.php?page=edit&action=edit&id=<?= $articleId ?>">
-                        <button type="button" name="edit" class="btn btn-link text-info btn-sm">
-                            Editer
-                        </button>
+                    <a href="index.php?page=edit&action=edit&id=<?= $articleId ?>" class="btn btn-link text-info btn-sm">
+                        Editer
                     </a>
-                    <a href="javascript:window.location.href='index.php?page=<?= $_GET['page']; ?>&action=deleteArticle&id=<?= $articleId ?>'+'&scroll='+document.documentElement.scrollTop">
-                        <button type="button" name="delete" class="btn btn-link text-info btn-sm">
-                            Supprimer
-                        </button>
+                    <a href="javascript:window.location.href='index.php?page=<?= $_GET['page']; ?>&action=deleteArticle&id=<?= $articleId ?>'+'&scroll='+document.documentElement.scrollTop" class="btn btn-link text-info btn-sm">
+                        Supprimer
                     </a>
                 </td>
                 <td class="text-nowrap col"><?= $articleTitle ?></td>

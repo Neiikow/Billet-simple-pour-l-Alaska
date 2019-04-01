@@ -1,8 +1,8 @@
 <?php
 if ($_SESSION['role'] === 'admin') {
 ?>
-    <a href="index.php?page=home&action=logout">
-        <button class="btn btn-outline-light" type="button">Deconnexion</button>
+    <a href="index.php?page=home&action=logout" class="btn btn-outline-light">
+        Deconnexion
     </a>
 <?php
 }

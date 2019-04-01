@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once('controller/front/ControllerFront.php');
-//echo ('<br><br><br><br><br><br>');
 try {
     $ctrl = new \Jordan\Blog\Controller\ControllerFront;
     if (!isset($_SESSION['role'])) {
@@ -64,7 +63,7 @@ try {
         $data = [
             'to' => htmlspecialchars($_POST['emailFocus']),
             'from' => htmlspecialchars($_POST['email']),
-            'message' => htmlspecialchars('Un message de la part de :' .$_POST['name']. '\n\r' .$_POST['message']),
+            'message' => htmlspecialchars('De : ' .$_POST['name']). '\n\r' .htmlspecialchars('Message : ' .$_POST['message']),
             'subject' => htmlspecialchars($_POST['title'])
         ];
         $ctrl->sendMail($data);

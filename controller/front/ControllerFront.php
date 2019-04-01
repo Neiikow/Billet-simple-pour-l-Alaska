@@ -82,6 +82,7 @@ class ControllerFront
         $subject = $data['subject'];
         $message = wordwrap($data['message'], 70, "\r\n");
         $headers = 'From: '. $data['from'];
-        mail($to, $subject, $message, $headers); 
+
+        //mail($to, $subject, $message, $headers); 
     }
 }

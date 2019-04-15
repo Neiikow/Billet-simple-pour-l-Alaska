@@ -13,7 +13,7 @@ class ArticleManager extends PostManager
         $this->table = $table;
     }
     
-    public function addPost(Post $post)
+    public function addPost(Article $post)
     {
         $req = $this->db->prepare('INSERT INTO ' . $this->table . '(title, author, text, grp) VALUES(:title, :author, :text, :grp)');
         $req->bindValue(':title', $post->title(), \PDO::PARAM_STR);
@@ -22,7 +22,7 @@ class ArticleManager extends PostManager
         $req->bindValue(':grp', $post->grp(), \PDO::PARAM_STR);
         $req->execute();
     }
-    public function editPost(Post $post)
+    public function editPost(Article $post)
     {
         $req = $this->db->prepare('UPDATE  ' . $this->table . '  SET title = :title, text = :text WHERE id = :id');
         $req->bindValue(':title', $post->title(), \PDO::PARAM_STR);

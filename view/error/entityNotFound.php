@@ -1,0 +1,1 @@
+<p class="p-3 mb-2 bg-danger text-white text-center"><?= $errorMsg ?></p>

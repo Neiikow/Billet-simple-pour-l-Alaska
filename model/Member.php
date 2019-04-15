@@ -1,5 +1,6 @@
 <?php
 namespace Jordan\Blog\Model;
+
 class Member
 {
     private $_id;
@@ -12,7 +13,6 @@ class Member
     private $_street;
     private $_postal;
 
-    
     public function __construct($data)
     {
         $this->hydrate($data);

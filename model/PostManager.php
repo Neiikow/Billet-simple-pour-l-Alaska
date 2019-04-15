@@ -17,8 +17,6 @@ class PostManager
         }
         if ($posts) {
             return $posts;
-        } else {
-            throw new \Exception("Aucun ". $this->table ." disponible");
         }
     }
     public function getPost($id)
@@ -28,8 +26,6 @@ class PostManager
         $data = $req->fetch(\PDO::FETCH_ASSOC);
         if ($data) {
             return new $this->_post($data);
-        } else {
-            throw new \Exception("Aucun ". $this->table ." disponible");
         }
     }
     public function getCount($grp)
@@ -39,8 +35,6 @@ class PostManager
         $nb = $req->fetch(\PDO::FETCH_ASSOC);
         if ($nb) {
             return (int) $nb['COUNT(*)'];
-        } else {
-            throw new \Exception("Aucun ". $this->table ." disponible");
         }
     }
     public function getRow($id, $grp)
@@ -50,8 +44,6 @@ class PostManager
         $nb = $req->fetch(\PDO::FETCH_ASSOC);
         if ($nb) {
             return (int) $nb['COUNT(*)'];
-        } else {
-            throw new \Exception("Aucun ". $this->table ." disponible");
         }
     }
     public function getNext($id, $grp)
@@ -79,8 +71,6 @@ class PostManager
         $data = $req->fetch(\PDO::FETCH_ASSOC);
         if ($data) {
             return new $this->_post($data);
-        } else {
-            throw new \Exception("Aucun ". $this->table ." disponible");
         }
     }
     public function getFirst($grp)
@@ -90,13 +80,11 @@ class PostManager
         $data = $req->fetch(\PDO::FETCH_ASSOC);
         if ($data) {
             return new $this->_post($data);
-        } else {
-            throw new \Exception("Aucun ". $this->table ." disponible");
         }
     }
-    public function deletePost(Post $post)
+    public function deletePost($id)
     {
-        $this->db->query('DELETE FROM  ' . $this->table . '  WHERE id =' . $post->id());
+        $this->db->query('DELETE FROM  ' . $this->table . '  WHERE id =' . $id);
     }
     public function reportPost($id)
     {
@@ -122,8 +110,6 @@ class PostManager
         }
         if ($posts) {
             return $posts;
-        } else {
-            throw new \Exception("Aucun ". $this->table ." signalé");
         }
     }
 }

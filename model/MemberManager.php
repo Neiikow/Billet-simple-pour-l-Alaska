@@ -20,8 +20,6 @@ class MemberManager
         $data = $req->fetch(\PDO::FETCH_ASSOC);
         if ($data) {
             return new Member($data);
-        } else {
-            throw new \Exception("Pseudo ou mot de passe incorect");
         }
     }
     public function getRole($role)
@@ -31,8 +29,6 @@ class MemberManager
         $data = $req->fetch(\PDO::FETCH_ASSOC);
         if ($data) {
             return new Member($data);
-        } else {
-            throw new \Exception("Aucun ". $role ." trouvé");
         }
     }
     public function editMember(Member $member)

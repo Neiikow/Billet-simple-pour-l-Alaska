@@ -11,6 +11,7 @@ tinymce.init({
     plugins : 'autoresize advlist autolink link lists',
     toolbar1: 'undo redo | cut copy paste blockquote | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | fontselect fontsizeselect forecolor backcolor bold italic underline strikethrough',
 });
+
 //Gestion de la position du scroll après un click
 try {
     const x = location.href.split("scroll=")[1]

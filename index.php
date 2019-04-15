@@ -1,230 +1,111 @@
 <?php
 session_start();
-require_once('controller/front/ControllerFront.php');
+if (!isset($_SESSION['role'])) {
+    $_SESSION['role'] = 'visitor';
+}
+require_once('controller/ConnexionController.php');
+require_once('controller/HomeController.php');
+require_once('controller/ArticlesController.php');
+require_once('controller/ContactController.php');
+require_once('controller/admin/AdminArticlesController.php');
+require_once('controller/admin/CommentsController.php');
+require_once('controller/admin/NewController.php');
+require_once('controller/admin/EditController.php');
+require_once('controller/admin/ReportedController.php');
+require_once('controller/admin/ProfilController.php');
+require_once('controller/admin/SettingsController.php');
+
 try {
-    $ctrl = new \Jordan\Blog\Controller\ControllerFront;
-    if (!isset($_SESSION['role'])) {
-        $_SESSION['role'] = 'visitor';
+    if (isset($_POST['sign-in'])) {
+        $connexion = new Jordan\Blog\Controller\ConnexionController;
+        $connexion->login();
     }
-    if (isset($_GET['id'])) {
-        $id = (int)$_GET['id'];
+    if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+        $connexion = new Jordan\Blog\Controller\ConnexionController;
+        $connexion->logout();
     }
-    if (isset($_GET['idCom'])) {
-        $idCom = (int)$_GET['idCom'];
-    }
-    if (isset($_POST['new-article'])) {
-        $article = new \Jordan\Blog\Model\Article([
-            'author' => $_SESSION['name'],
-            'text' => $_POST['text'],
-            'title' => $_POST['title'],
-            'grp' => "chapter"
-        ]);
-        $ctrl->addPost('article', $article);
-    }
-    elseif (isset($_POST['new-comment'])) {
-        $comment = new \Jordan\Blog\Model\Comment([
-            'author' => $_POST['author'],
-            'text' => $_POST['text'],
-            'postId' => $_GET['id'],
-            'grp' => "chapter"
-        ]);
-        $ctrl->addPost('comment', $comment);
-    }
-    elseif (isset($_POST['edit-article'])) {
-        $article = new \Jordan\Blog\Model\Article([
-            'text' => $_POST['text'],
-            'title' => $_POST['title'],
-            'id' => $id
-        ]);
-        $ctrl->editPost('article', $article);
-    }
-    elseif (isset($_POST['edit-member'])) {
-        $data = [
-            'name' => $_POST['name'],
-            'email' => $_POST['email'],
-            'phone' => $_POST['phone'],
-            'city' => $_POST['city'],
-            'street' => $_POST['street'],
-            'postal' => $_POST['postal'],
-            'id' => $_GET['id']
-        ];
-        if (!empty($_POST['password'])) {
-            if ($_POST['password'] === $_POST['confirm-password']) {
-                $data['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            }
-            else {
-                throw new Exception("Confirmation du mot de passe incorrecte");
-            }
-        }
-        $member = new \Jordan\Blog\Model\Member($data);
-        $ctrl->editMember($member);
-    }
-    elseif (isset($_POST['new-email'])) {
-        $data = [
-            'to' => htmlspecialchars($_POST['emailFocus']),
-            'from' => htmlspecialchars($_POST['email']),
-            'message' => htmlspecialchars('De : ' .$_POST['name']). '\n\r' .htmlspecialchars('Message : ' .$_POST['message']),
-            'subject' => htmlspecialchars($_POST['title'])
-        ];
-        $ctrl->sendMail($data);
-        $ctrl->success("Email envoyé avec succès !");
-    }
-    elseif (isset($_POST['sign-in'])) {
-        $ctrl->login($_POST['name'], $_POST['password']);
-    }
-    if (isset($_GET['action'])) {
-        switch($_GET['action'])
+    if (isset($_GET['page'])) {
+        switch($_GET['page'])
         {
-            case "report":
-                $ctrl->reportPost('comment', $idCom);
-                $ctrl->childsPost('comment', 'article', $id);
+            // Pages Publiques
+            case "home":
+                $ctrl = new Jordan\Blog\Controller\HomeController;
+                $ctrl->index();
                 break;
-            case "valide":
-                $ctrl->validePost('comment', $idCom);
-                if (isset($id)) {
-                    $ctrl->childsPost('comment', 'article', $id);
+            case "articles":
+                $ctrl = new Jordan\Blog\Controller\ArticlesController;
+                $ctrl->index();
+                break;
+            case "contact":
+                $ctrl = new Jordan\Blog\Controller\ContactController;
+                $ctrl->index();
+                break;
+            // Pages d'administration
+            case "articlesManager":
+                if ($_SESSION['role'] === 'admin') {
+                    $ctrl = new Jordan\Blog\Controller\Admin\AdminArticlesController;
+                    $ctrl->index();
+                } else {
+                    throw new Exception("Accès refusé");
+                }
+                break;
+            case "commentsManager":
+                if ($_SESSION['role'] === 'admin') {
+                    $ctrl = new Jordan\Blog\Controller\Admin\CommentsController;
+                    $ctrl->index();
+                } else {
+                    throw new Exception("Accès refusé");
+                }
+                break;
+            case "new":
+                if ($_SESSION['role'] === 'admin') {
+                    $ctrl = new Jordan\Blog\Controller\Admin\NewController;
+                    $ctrl->index();
+                } else {
+                    throw new Exception("Accès refusé");
                 }
                 break;
             case "edit":
-                $ctrl->post('article', $id);
+                if ($_SESSION['role'] === 'admin') {
+                    $ctrl = new Jordan\Blog\Controller\Admin\EditController;
+                    $ctrl->index();
+                } else {
+                    throw new Exception("Accès refusé");
+                }
                 break;
-            case "seeComments":
-                $ctrl->childsPost('comment', 'article', $id);
+            case "reported":
+                if ($_SESSION['role'] === 'admin') {
+                    $ctrl = new Jordan\Blog\Controller\Admin\ReportedController;
+                    $ctrl->index();
+                } else {
+                    throw new Exception("Accès refusé");
+                }
                 break;
-            case "deleteComment":
-                $ctrl->deletePost('comment', $idCom);
+            case "profile":
+                if ($_SESSION['role'] === 'admin') {
+                    $ctrl = new Jordan\Blog\Controller\Admin\ProfilController;
+                    $ctrl->index();
+                } else {
+                    throw new Exception("Accès refusé");
+                }
                 break;
-            case "deleteArticle":
-                $ctrl->deletePost('article', $id);
+            case "settings":
+                if ($_SESSION['role'] === 'admin') {
+                    $ctrl = new Jordan\Blog\Controller\Admin\SettingsController;
+                    $ctrl->index();
+                } else {
+                    throw new Exception("Accès refusé");
+                }
                 break;
-            case "logout":
-                $_SESSION['role'] = 'visitor';
-                header('Location: index.php');
+            default:
+                throw new Exception("Page introuvable");
                 break;
         }
+    } else {
+        $ctrl = new Jordan\Blog\Controller\HomeController;
+        $ctrl->index();
     }
+} catch (Exception $e) {
+    $error = $e->getMessage();
+    require_once('view/error/pageNotFound.php');
 }
-catch (Exception $e) {
-    $ctrl->error($e->getMessage());
-}
-if ($_SESSION['role'] === 'admin' && isset($_GET['page'])) {
-    switch($_GET['page'])
-    {
-        case "articlesManager":
-            try {
-                $ctrl->posts('article', 'chapter');
-            }
-            catch (Exception $e) {
-                $ctrl->error($e->getMessage());
-            }
-            finally {
-                $ctrl->setUrl('back', 'articlesManager');
-            }
-            break;
-        case "commentsManager":
-            try {
-                $ctrl->posts('comment', 'chapter');
-            }
-            catch (Exception $e) {
-                $ctrl->error($e->getMessage());
-            }
-            finally {
-                $ctrl->setUrl('back', 'commentsManager');
-            }
-            break;
-        case "new":
-            $ctrl->setUrl('back', 'new');
-            break;
-        case "edit":
-            $ctrl->setUrl('back', 'edit');
-            break;
-        case "reported":
-            try {
-                $ctrl->reportedPosts('comment');
-            }
-            catch (Exception $e) {
-                $ctrl->error($e->getMessage());
-            }
-            finally {
-                $ctrl->setUrl('back', 'commentsManager');
-            }
-            break;
-        case "profile":
-            try {
-                $ctrl->user($_SESSION['name']);
-            }
-            catch (Exception $e) {
-                $ctrl->error($e->getMessage());
-            }
-            finally {
-                $ctrl->setUrl('back', 'profile');
-            }
-            break;
-        case "settings":
-            $ctrl->posts('article', 'intro');
-            $ctrl->setUrl('back', 'settings');
-            break;
-    }
-}
-if (isset($_GET['page'])) {
-    switch($_GET['page'])
-    {
-        case "home":
-            try {
-                $ctrl->posts('article', 'intro');
-                $ctrl->lastPost('article', 'chapter');
-            } 
-            catch (Exception $e) {
-                $ctrl->error($e->getMessage());
-            }
-            finally {
-                $ctrl->setUrl('front', 'home');
-            }
-            break;
-        case "articles":
-            try {
-                $ctrl->firstPost('article', 'chapter');
-                $ctrl->lastPost('article', 'chapter');
-                if (!isset($id)) {
-                    $id = $ctrl->data('firstChapter')->id();
-                }
-                $ctrl->post('article', $id);
-                $ctrl->nextPost('article', $id, 'chapter');
-                $ctrl->prevPost('article', $id, 'chapter');
-                $ctrl->rowPost('article', $id, 'chapter');
-                $ctrl->countPosts('article', 'chapter');
-            }
-            catch (Exception $e) {
-                $ctrl->error($e->getMessage());
-            }
-            finally {
-                $ctrl->setUrl('front', 'articles');
-            }
-            break;
-        case "contact":
-            try {
-                $ctrl->role('admin');
-            } 
-            catch (Exception $e) {
-                $ctrl->error($e->getMessage());
-            }
-            finally {
-                $ctrl->setUrl('front', 'contact');
-            }
-            break;
-    }
-}
-else {
-    try {
-        $_GET['page'] = "home";
-        $ctrl->posts('article', 'intro');
-        $ctrl->lastPost('article', 'chapter');
-    }
-    catch (Exception $e) {
-        $ctrl->error($e->getMessage());
-    }
-    finally {
-        $ctrl->setUrl('front', 'home');
-    }
-}
-$ctrl->loadPage();

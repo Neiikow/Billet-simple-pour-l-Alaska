@@ -25,6 +25,10 @@ class CommentManager extends PostManager
         
         return $comments;
     }
+    public function deletePosts($id)
+    {
+        $this->db->query('DELETE FROM  ' . $this->table . '  WHERE postId =' . $id);
+    }
     public function addPost(Comment $post)
     {
         $req = $this->db->prepare('INSERT INTO ' . $this->table . '(postId, author, text, grp) VALUES(:postId, :author, :text, :grp)');
@@ -32,14 +36,6 @@ class CommentManager extends PostManager
         $req->bindValue(':text', $post->text(), \PDO::PARAM_STR);
         $req->bindValue(':author', $post->author(), \PDO::PARAM_STR);
         $req->bindValue(':grp', $post->grp(), \PDO::PARAM_STR);
-        $req->execute();
-    }
-    public function editPost(Comment $post)
-    {
-        $req = $this->db->prepare('UPDATE  ' . $this->table . '  SET author = :author, text = :text WHERE id = :id');
-        $req->bindValue(':author', $post->title(), \PDO::PARAM_STR);
-        $req->bindValue(':text', $post->text(), \PDO::PARAM_STR);
-        $req->bindValue(':id', $post->id(), \PDO::PARAM_INT);
         $req->execute();
     }
 }
